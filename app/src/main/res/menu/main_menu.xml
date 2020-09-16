@@ -6,13 +6,12 @@
         android:id="@+id/mainMenuSettings"
         android:title="Settings"
         android:icon="@drawable/ic_setting"
-        app:showAsAction="always"
-
+        app:showAsAction="ifRoom"
         />
+
     <item
         android:id="@+id/mainMenuOptions"
         android:icon="@drawable/ic_burger_menu"
         android:title="Options"
-
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 </menu>

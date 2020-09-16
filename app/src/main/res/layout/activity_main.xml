@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+
     android:padding="15dp"
     >
 
@@ -15,7 +16,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="25dp"
+        app:cardElevation="10dp"
         android:onClick="test"
         >
         <LinearLayout
@@ -27,7 +29,8 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:src="@drawable/ic_run"/>
+                android:src="@drawable/ic_run"
+                android:contentDescription="@string/send_runner_btn_explained"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -64,10 +67,19 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="15dp"
-            android:text="@string/add_staff"
+            android:text="@string/show_full_list"
             tools:layout_editor_absoluteX="136dp"
             app:icon="@drawable/ic_add"
             app:iconSize="35dp"
+            />
+        <com.google.android.material.button.MaterialButton
+            style="@style/searchBtn"
+            android:id="@+id/searchBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_search"
+            app:iconSize="50dp"
+            android:layout_marginTop="40dp"
             />
     </LinearLayout>
 

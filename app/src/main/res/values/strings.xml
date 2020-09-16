@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">Runner</string>
+
+
+
+    //btn texts
     <string name="send_runner">Skicka Löpare</string>
     <string name="add_staff">Lägg till</string>
+    <string name="show_full_list">Visa listan</string>
+
+    //image explanations
+    <string name="send_runner_btn_explained">"En bild på brandman, klicka för att skicka löpare"</string>
+
+
+
 </resources>
