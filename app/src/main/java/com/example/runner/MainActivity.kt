@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
     fun addData(){
         val data = DataSource.createList()
         recyclerAdapter.submitList(data)

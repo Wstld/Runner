@@ -26,13 +26,9 @@ class MainListRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is MainListViewHolder -> {
                 holder.apply {
                     bind(items.get(position))
-                    this.itemView.setOnClickListener {
-
-                    }
                 }
             }
         }
-
     }
 
     override fun getItemCount(): Int {
@@ -44,10 +40,17 @@ class MainListRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 }
 
-class MainListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+class MainListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView),
+View.OnClickListener{
     val mainListId:TextView = itemView.main_list_id
     val mainListName:TextView = itemView.main_list_name
+    init{
+        itemView.setOnClickListener(this)
+    }
 
+    override fun onClick(view: View?) {
+        TODO("Not yet implemented")
+    }
 
     fun bind(employee: Employee){
         mainListId.text = employee.id.toString()
