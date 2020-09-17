@@ -18,5 +18,9 @@
         <item name="android:minWidth">60dp</item>
         <item name="android:minHeight">70dp</item>
     </style>
+    <style name="numHolder" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+    </style>
 
 </resources>
