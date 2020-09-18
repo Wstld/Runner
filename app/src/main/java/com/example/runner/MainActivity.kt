@@ -15,7 +15,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
     lateinit var recyclerAdapter: MainListRecyclerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +49,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onItemClick(name:String) {
+        Toast.makeText(this, "Hello $name", Toast.LENGTH_SHORT).show()
+    }
+
     fun addData(){
         val data = DataSource.createList()
         recyclerAdapter.submitList(data)
@@ -58,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@MainActivity)
             val spacing = RecyclerViewSpacing(30)
             addItemDecoration(spacing)
-            recyclerAdapter = MainListRecyclerAdapter()
+            recyclerAdapter = MainListRecyclerAdapter(this@MainActivity)
             adapter = recyclerAdapter
 
         }

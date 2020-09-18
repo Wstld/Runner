@@ -13,11 +13,13 @@ import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.employee_list_item.view.*
 
-class MainListRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MainListRecyclerAdapter(
+    val  listener: MainListViewHolder.OnItemClickListener
+): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var items:MutableList<Employee> = mutableListOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MainListViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.employee_list_item,parent,false)
+            LayoutInflater.from(parent.context).inflate(R.layout.employee_list_item,parent,false,),listener
         )
     }
 
@@ -40,7 +42,7 @@ class MainListRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 }
 
-class MainListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView),
+class MainListViewHolder(itemView: View,val listener: OnItemClickListener): RecyclerView.ViewHolder(itemView),
 View.OnClickListener{
     val mainListId:TextView = itemView.main_list_id
     val mainListName:TextView = itemView.main_list_name
@@ -49,14 +51,16 @@ View.OnClickListener{
     }
 
     override fun onClick(view: View?) {
-        TODO("Not yet implemented")
+        listener.onItemClick(mainListName.text.toString())
     }
 
     fun bind(employee: Employee){
         mainListId.text = employee.id.toString()
         mainListName.text = employee.name
-
         //set images with if logic looking at competence. -->
+    }
+    interface OnItemClickListener{
+        fun onItemClick(name:String)
     }
 
 }
