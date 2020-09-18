@@ -1,5 +1,6 @@
 package com.example.runner
 
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
@@ -14,20 +15,22 @@ import androidx.appcompat.app.ActionBar
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.Serializable
 
-class MainActivity : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
-    lateinit var recyclerAdapter: MainListRecyclerAdapter
+class MainActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        initRecycler()
-        addData()
-/*        //Click listener
+
+        //Click listener
         val clickListener = View.OnClickListener { view ->
             when(view.id){
                 R.id.sendRunnerBtn -> Toast.makeText(applicationContext, "Sending", Toast.LENGTH_SHORT).show() //put function for send runner button.
                 R.id.addEmployeeBtn -> Toast.makeText(applicationContext, "Adding", Toast.LENGTH_SHORT).show() //put function for add employee button.
-                R.id.showFullListBtn -> Toast.makeText(applicationContext, "Showing", Toast.LENGTH_SHORT).show() //put function for show full list button.
+                R.id.showFullListBtn -> {
+                    val goToMainList = Intent(this,ListMain::class.java)
+                    startActivity(goToMainList)
+                }//put function for show full list button.
                 R.id.searchBtn -> Toast.makeText(applicationContext, "Searching", Toast.LENGTH_SHORT).show() //put function for search button.
 
             }
@@ -43,30 +46,12 @@ class MainActivity : AppCompatActivity(),MainListViewHolder.OnItemClickListener 
         sendRunnerBtn.setOnClickListener(clickListener)
         addEmployeeBtn.setOnClickListener(clickListener)
         showFullListBtn.setOnClickListener(clickListener)
-        searchBtn.setOnClickListener(clickListener)*/
+        searchBtn.setOnClickListener(clickListener)
 
 
 
     }
 
-    override fun onItemClick(name:String) {
-        Toast.makeText(this, "Hello $name", Toast.LENGTH_SHORT).show()
-    }
-
-    fun addData(){
-        val data = DataSource.createList()
-        recyclerAdapter.submitList(data)
-    }
-    fun initRecycler(){
-        testRecycler.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            val spacing = RecyclerViewSpacing(30)
-            addItemDecoration(spacing)
-            recyclerAdapter = MainListRecyclerAdapter(this@MainActivity)
-            adapter = recyclerAdapter
-
-        }
-    }
 
     override fun onCreatePanelMenu(featureId: Int, menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu,menu)

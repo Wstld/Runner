@@ -7,18 +7,7 @@
     tools:context=".MainActivity"
     android:padding="15dp"
     >
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintLeft_toRightOf="parent"
-        android:layout_margin="1dp"
-        android:id="@+id/testRecycler">
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <!--<com.google.android.material.card.MaterialCardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/sendRunnerBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -89,7 +78,7 @@
             app:iconSize="50dp"
             android:layout_marginTop="40dp"
             />
-    </LinearLayout>-->
+    </LinearLayout>
 
 
 
