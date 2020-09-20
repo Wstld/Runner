@@ -11,16 +11,19 @@ class ListMain : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_main)
-        initRecycler()
-        addData()
+        val mainList = intent.getParcelableArrayListExtra<Employee>("mainList")
+        if(mainList!=null){
+        initRecycler(mainList)}
+
     }
 
-    fun initRecycler(){
+    fun initRecycler(data:ArrayList<Employee>){
         mainListRecycler.apply {
             layoutManager = LinearLayoutManager(this@ListMain)
             val spacing = RecyclerViewSpacing(30)
             addItemDecoration(spacing)
             recyclerAdapter = MainListRecyclerAdapter(this@ListMain)
+            recyclerAdapter.submitList(data)
             adapter = recyclerAdapter
 
         }
@@ -30,10 +33,6 @@ class ListMain : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
         Toast.makeText(this, "det fungerar $name", Toast.LENGTH_SHORT).show()
     }
 
-    fun addData(){
-        val data = DataSource.createList()
-        recyclerAdapter.submitList(data)
-    }
 
 
 }

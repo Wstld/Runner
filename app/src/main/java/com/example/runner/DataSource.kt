@@ -1,43 +1,44 @@
 package com.example.runner
 
+import java.io.Serializable
 import java.util.ArrayList
 
-class DataSource {
+class DataSource:Serializable {
     companion object{
-        fun createList():MutableList<Employee>{
-            val mainList = mutableListOf<Employee>()
+        fun createList():ArrayList<Employee>{
+            val mainList = ArrayList<Employee>()
             mainList.add(
-                Employee(201,"Tomas Tomasson", Competence(driverTruck = true, driverLadder = true, searchAndRescueLeader = true, searchAndRescue = true)) //All but chief
+                Employee(201,"Tomas Tomasson",1,competence = Competence(driverTruck = true, driverLadder = true, searchAndRescueLeader = true, searchAndRescue = true)) //All but chief
             )
             mainList.add(
-                Employee(21,"Erik Johansson", Competence(true,true,true,true,true))//Chief with full competence
+                Employee(21,"Erik Johansson",2,competence =  Competence(true,true,true,true,true))//Chief with full competence
             )
             mainList.add(
-                Employee(331,"Sara Sarasson", Competence(chief = true))//Only Chief
+                Employee(331,"Sara Sarasson",3,competence =  Competence(chief = true))//Only Chief
             )
             mainList.add(
-                Employee(12,"Martin Martinsson", Competence(driverLadder = true, driverTruck = true))//Only driver both trucks
+                Employee(12,"Martin Martinsson",4,competence =  Competence(driverLadder = true, driverTruck = true))//Only driver both trucks
             )
             mainList.add(
-                Employee(7,"Edna Ednasson", Competence(searchAndRescue = true,driverTruck = true))//Search and Rescue + driver Truck
+                Employee(7,"Edna Ednasson",1,competence =  Competence(searchAndRescue = true,driverTruck = true))//Search and Rescue + driver Truck
             )
             mainList.add(
-                Employee(222,"Mats Matsson", Competence(searchAndRescue = true,driverTruck = true,driverLadder = true))//Search and Rescue + diver both trucks
+                Employee(222,"Mats Matsson",2,competence =  Competence(searchAndRescue = true,driverTruck = true,driverLadder = true))//Search and Rescue + diver both trucks
             )
             mainList.add(
-                Employee(633,"Sven Svensson", Competence(searchAndRescue = true,searchAndRescueLeader = true,driverTruck = true))//Search and Rescue Leader + Driver truck
+                Employee(633,"Sven Svensson",3,competence =  Competence(searchAndRescue = true,searchAndRescueLeader = true,driverTruck = true))//Search and Rescue Leader + Driver truck
             )
             mainList.add(
-                Employee(170,"Ping Pingsson", Competence(searchAndRescue = true))//Only Search and Rescue
+                Employee(170,"Ping Pingsson",4,competence =  Competence(searchAndRescue = true))//Only Search and Rescue
             )
             mainList.add(
-                Employee(10,"Ibrahim Ibrahimsson", Competence(driverTruck = true, driverLadder = true, searchAndRescueLeader = true, searchAndRescue = true))// all but chief
+                Employee(10,"Ibrahim Ibrahimsson",1,competence =  Competence(driverTruck = true, driverLadder = true, searchAndRescueLeader = true, searchAndRescue = true))// all but chief
             )
             mainList.add(
-                Employee(90,"Nils Nilsson", Competence(driverTruck = true,driverLadder = true))// only driver
+                Employee(90,"Nils Nilsson",2,competence =  Competence(driverTruck = true,driverLadder = true))// only driver
             )
             mainList.add(
-                Employee(300,"Arne Arnesson", Competence(searchAndRescue = true))// only search and rescue
+                Employee(300,"Arne Arnesson",3,competence =  Competence(searchAndRescue = true))// only search and rescue
             )
             return mainList
         }

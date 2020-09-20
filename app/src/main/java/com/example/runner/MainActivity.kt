@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //Create Data (the list)
+        val MAINLIST = DataSource.createList()
 
         //Click listener
         val clickListener = View.OnClickListener { view ->
@@ -29,6 +31,8 @@ class MainActivity : AppCompatActivity(){
                 R.id.addEmployeeBtn -> Toast.makeText(applicationContext, "Adding", Toast.LENGTH_SHORT).show() //put function for add employee button.
                 R.id.showFullListBtn -> {
                     val goToMainList = Intent(this,ListMain::class.java)
+                    //send data to new activity
+                    goToMainList.putParcelableArrayListExtra("mainList",MAINLIST)
                     startActivity(goToMainList)
                 }//put function for show full list button.
                 R.id.searchBtn -> Toast.makeText(applicationContext, "Searching", Toast.LENGTH_SHORT).show() //put function for search button.
@@ -52,12 +56,12 @@ class MainActivity : AppCompatActivity(){
 
     }
 
-
+//create custom menu items
     override fun onCreatePanelMenu(featureId: Int, menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu,menu)
         return true
     }
-
+//OnClicked Item handler
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
        return when(item.itemId){
             R.id.mainMenuSettings -> {

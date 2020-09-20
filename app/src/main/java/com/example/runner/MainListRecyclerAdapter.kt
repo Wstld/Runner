@@ -1,22 +1,21 @@
 package com.example.runner
 
-import android.app.Application
-import android.content.ContentProvider
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.employee_list_item.view.*
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainListRecyclerAdapter(
     val  listener: MainListViewHolder.OnItemClickListener
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var items:MutableList<Employee> = mutableListOf()
+    private var items:ArrayList<Employee> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MainListViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.employee_list_item,parent,false,),listener
@@ -36,7 +35,7 @@ class MainListRecyclerAdapter(
     override fun getItemCount(): Int {
         return items.size
     }
-    fun submitList(mainList:MutableList<Employee>){
+    fun submitList(mainList:ArrayList<Employee>){
         items = mainList
     }
 
@@ -44,6 +43,7 @@ class MainListRecyclerAdapter(
 
 class MainListViewHolder(itemView: View,val listener: OnItemClickListener): RecyclerView.ViewHolder(itemView),
 View.OnClickListener{
+    lateinit var date:String
     val mainListId:TextView = itemView.main_list_id
     val mainListName:TextView = itemView.main_list_name
     init{
@@ -51,12 +51,14 @@ View.OnClickListener{
     }
 
     override fun onClick(view: View?) {
-        listener.onItemClick(mainListName.text.toString())
+        listener.onItemClick(date)
     }
 
     fun bind(employee: Employee){
         mainListId.text = employee.id.toString()
         mainListName.text = employee.name
+        val test = employee.getDate()
+        date = test
         //set images with if logic looking at competence. -->
     }
     interface OnItemClickListener{
