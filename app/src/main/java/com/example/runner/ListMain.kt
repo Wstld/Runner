@@ -13,11 +13,11 @@ class ListMain : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
         setContentView(R.layout.activity_list_main)
         val mainList = intent.getParcelableArrayListExtra<Employee>("mainList")
         if(mainList!=null){
-        initRecycler(mainList)}
-
+        initRecycler(mainList.sortedBy { it.lastRun })
+        }
     }
 
-    fun initRecycler(data:ArrayList<Employee>){
+    fun initRecycler(data:List<Employee>){
         mainListRecycler.apply {
             layoutManager = LinearLayoutManager(this@ListMain)
             val spacing = RecyclerViewSpacing(30)
@@ -30,7 +30,7 @@ class ListMain : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
     }
 
     override fun onItemClick(name: String) {
-        Toast.makeText(this, "det fungerar $name", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "${name}", Toast.LENGTH_SHORT).show()
     }
 
 

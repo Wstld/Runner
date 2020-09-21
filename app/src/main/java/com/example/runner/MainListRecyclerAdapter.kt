@@ -15,7 +15,7 @@ import kotlin.collections.ArrayList
 class MainListRecyclerAdapter(
     val  listener: MainListViewHolder.OnItemClickListener
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var items:ArrayList<Employee> = ArrayList()
+    private var items:List<Employee> = listOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MainListViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.employee_list_item,parent,false,),listener
@@ -35,7 +35,7 @@ class MainListRecyclerAdapter(
     override fun getItemCount(): Int {
         return items.size
     }
-    fun submitList(mainList:ArrayList<Employee>){
+    fun submitList(mainList:List<Employee>){
         items = mainList
     }
 
@@ -57,7 +57,7 @@ View.OnClickListener{
     fun bind(employee: Employee){
         mainListId.text = employee.id.toString()
         mainListName.text = employee.name
-        val test = employee.getDate()
+        val test = employee.lastRun
         date = test
         //set images with if logic looking at competence. -->
     }

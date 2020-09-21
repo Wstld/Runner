@@ -8,16 +8,16 @@ class DataSource:Serializable {
         fun createList():ArrayList<Employee>{
             val mainList = ArrayList<Employee>()
             mainList.add(
-                Employee(201,"Tomas Tomasson",1,competence = Competence(driverTruck = true, driverLadder = true, searchAndRescueLeader = true, searchAndRescue = true)) //All but chief
+                Employee(201,"Tomas Tomasson",1,"2020-09-19",competence = Competence(driverTruck = true, driverLadder = true, searchAndRescueLeader = true, searchAndRescue = true)) //All but chief
             )
             mainList.add(
-                Employee(21,"Erik Johansson",2,competence =  Competence(true,true,true,true,true))//Chief with full competence
+                Employee(21,"Erik Johansson",2,"2020-09-12",competence =  Competence(true,true,true,true,true))//Chief with full competence
             )
             mainList.add(
                 Employee(331,"Sara Sarasson",3,competence =  Competence(chief = true))//Only Chief
             )
             mainList.add(
-                Employee(12,"Martin Martinsson",4,competence =  Competence(driverLadder = true, driverTruck = true))//Only driver both trucks
+                Employee(12,"Martin Martinsson",4,"2020-09-12",competence =  Competence(driverLadder = true, driverTruck = true))//Only driver both trucks
             )
             mainList.add(
                 Employee(7,"Edna Ednasson",1,competence =  Competence(searchAndRescue = true,driverTruck = true))//Search and Rescue + driver Truck

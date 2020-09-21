@@ -27,7 +27,11 @@ class MainActivity : AppCompatActivity(){
         //Click listener
         val clickListener = View.OnClickListener { view ->
             when(view.id){
-                R.id.sendRunnerBtn -> Toast.makeText(applicationContext, "Sending", Toast.LENGTH_SHORT).show() //put function for send runner button.
+                R.id.sendRunnerBtn -> {
+                    val goToSendRunner = Intent(this,SendRunnerActivity::class.java)
+                    goToSendRunner.putParcelableArrayListExtra("list",MAINLIST)
+                    startActivity(goToSendRunner)
+                } //put function for send runner button.
                 R.id.addEmployeeBtn -> Toast.makeText(applicationContext, "Adding", Toast.LENGTH_SHORT).show() //put function for add employee button.
                 R.id.showFullListBtn -> {
                     val goToMainList = Intent(this,ListMain::class.java)
