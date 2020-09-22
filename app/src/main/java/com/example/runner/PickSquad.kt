@@ -1,5 +1,6 @@
 package com.example.runner
 
+import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import android.util.Log
@@ -42,18 +43,9 @@ class PickSquad : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val fragment = inflater.inflate(R.layout.fragment_pick_squad, container, false)
-
+        val activity: SendRunnerActivity = activity as SendRunnerActivity
         val clickListener = View.OnClickListener { view ->
-            when (view.id){
-                R.id.squadOneBtn -> {
-                Toast.makeText(fragment.context, "Fungerar", Toast.LENGTH_SHORT).show()
-                    DataSource.data.removeLast()
-            }
-                R.id.squadTwoBtn -> {}
-                R.id.squadThreeBtn -> {}
-                R.id.squadFourBtn -> {}
-
-            }
+            activity.selectedSquadHandler(view.id)
         }
 
         if (fragment != null) {
