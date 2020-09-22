@@ -34,7 +34,8 @@ class DisplaySquadFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_display_squad, container, false)
+        val fragment = inflater.inflate(R.layout.fragment_display_squad, container, false)
+        return fragment
     }
 
     companion object {

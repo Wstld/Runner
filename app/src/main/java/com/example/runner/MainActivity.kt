@@ -22,21 +22,23 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //Create Data (the list)
-        val MAINLIST = DataSource.createList()
+        val MAINLIST = DataSource
+
+
 
         //Click listener
         val clickListener = View.OnClickListener { view ->
             when(view.id){
                 R.id.sendRunnerBtn -> {
                     val goToSendRunner = Intent(this,SendRunnerActivity::class.java)
-                    goToSendRunner.putParcelableArrayListExtra("list",MAINLIST)
+
                     startActivity(goToSendRunner)
                 } //put function for send runner button.
                 R.id.addEmployeeBtn -> Toast.makeText(applicationContext, "Adding", Toast.LENGTH_SHORT).show() //put function for add employee button.
                 R.id.showFullListBtn -> {
                     val goToMainList = Intent(this,ListMain::class.java)
                     //send data to new activity
-                    goToMainList.putParcelableArrayListExtra("mainList",MAINLIST)
+
                     startActivity(goToMainList)
                 }//put function for show full list button.
                 R.id.searchBtn -> Toast.makeText(applicationContext, "Searching", Toast.LENGTH_SHORT).show() //put function for search button.

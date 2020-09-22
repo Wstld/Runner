@@ -3,10 +3,10 @@ package com.example.runner
 import java.io.Serializable
 import java.util.ArrayList
 
-class DataSource:Serializable {
-    companion object{
-        fun createList():ArrayList<Employee>{
-            val mainList = ArrayList<Employee>()
+object DataSource {
+    val data = createList()
+        fun createList():MutableList<Employee>{
+            val mainList = mutableListOf<Employee>()
             mainList.add(
                 Employee(201,"Tomas Tomasson",1,"2020-09-19",competence = Competence(driverTruck = true, driverLadder = true, searchAndRescueLeader = true, searchAndRescue = true)) //All but chief
             )
@@ -41,6 +41,6 @@ class DataSource:Serializable {
                 Employee(300,"Arne Arnesson",3,competence =  Competence(searchAndRescue = true))// only search and rescue
             )
             return mainList
-        }
+
     }
 }

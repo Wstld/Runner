@@ -33,6 +33,7 @@ class PickSquad : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
+
     }
 
     override fun onCreateView(
@@ -42,10 +43,11 @@ class PickSquad : Fragment() {
         // Inflate the layout for this fragment
         val fragment = inflater.inflate(R.layout.fragment_pick_squad, container, false)
 
-        val clickListner = View.OnClickListener { view ->
+        val clickListener = View.OnClickListener { view ->
             when (view.id){
                 R.id.squadOneBtn -> {
                 Toast.makeText(fragment.context, "Fungerar", Toast.LENGTH_SHORT).show()
+                    DataSource.data.removeLast()
             }
                 R.id.squadTwoBtn -> {}
                 R.id.squadThreeBtn -> {}
@@ -61,10 +63,10 @@ class PickSquad : Fragment() {
             val btn3 = fragment.findViewById<Button>(R.id.squadThreeBtn)
             val btn4 = fragment.findViewById<Button>(R.id.squadFourBtn)
             //Set listeners
-            btn1.setOnClickListener(clickListner)
-            btn2.setOnClickListener(clickListner)
-            btn3.setOnClickListener(clickListner)
-            btn4.setOnClickListener(clickListner)
+            btn1.setOnClickListener(clickListener)
+            btn2.setOnClickListener(clickListener)
+            btn3.setOnClickListener(clickListener)
+            btn4.setOnClickListener(clickListener)
         }
         return fragment
     }

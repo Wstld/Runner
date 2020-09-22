@@ -10,11 +10,10 @@ class ListMain : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
     lateinit var recyclerAdapter:MainListRecyclerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val data = DataSource.data
         setContentView(R.layout.activity_list_main)
-        val mainList = intent.getParcelableArrayListExtra<Employee>("mainList")
-        if(mainList!=null){
-        initRecycler(mainList.sortedBy { it.lastRun })
-        }
+        initRecycler(data.sortedBy { it.lastRun })
+
     }
 
     fun initRecycler(data:List<Employee>){
