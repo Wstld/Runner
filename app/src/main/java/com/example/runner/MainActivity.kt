@@ -33,7 +33,10 @@ class MainActivity : AppCompatActivity(){
                     val goToSendRunner = Intent(this,SendRunnerActivity::class.java)
                     startActivity(goToSendRunner)
                 } //put function for send runner button.
-                R.id.addEmployeeBtn -> Toast.makeText(applicationContext, "Adding", Toast.LENGTH_SHORT).show() //put function for add employee button.
+                R.id.addEmployeeBtn -> {
+                    val goToAddEmployeeActivity = Intent(this,AddEmployeeActivity::class.java)
+                    startActivity(goToAddEmployeeActivity)
+                } //put function for add employee button.
                 R.id.showFullListBtn -> {
                     val goToMainList = Intent(this,ListMain::class.java)
                     startActivity(goToMainList)

@@ -1,5 +1,24 @@
 <resources>
     <string name="app_name">Runner</string>
+    //Input Hints
+    <string name="employee_id_input">Nummer</string>
+    <string name="employee_name_input">Namn</string>
+    <string name="employee_squad_input">Grupp</string>
+    <string name="employee_competence_input">Kompetenser</string>
+
+    //numbers
+    <string name="one_numeric">1</string>
+    <string name="two_numeric">2</string>
+    <string name="three_numeric">3</string>
+    <string name="four_numeric">4</string>
+
+    //competences
+    <string name="driver">Chaufför</string>
+    <string name="driver_ladder">Chaufför Stegen</string>
+    <string name="search_and_rescue">Rökdykare</string>
+    <string name="search_and_rescue_leader">RökdyarLedare</string>
+    <string name="squadleader">BM/BF</string>
+
 
 
     //btn texts
@@ -11,6 +30,8 @@
     <string name="squad_2">Grupp 2</string>
     <string name="squad_3">Grupp 3</string>
     <string name="squad_4">Grupp 4</string>
+
+    <string name="add_employee">Lägg till</string>
 
     //image explanations
     <string name="send_runner_btn_explained">"En bild på brandman, klicka för att skicka löpare"</string>
