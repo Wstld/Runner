@@ -20,7 +20,7 @@ object DataSource {
                 Employee(12,"Martin Martinsson",4,"2020-09-12",competence =  Competence(driverLadder = true, driverTruck = true))//Only driver both trucks
             )
             mainList.add(
-                Employee(7,"Edna Ednasson",1,competence =  Competence(searchAndRescue = true,driverTruck = true))//Search and Rescue + driver Truck
+                Employee(7,"Edna Ednasson",1,"2020-09-12",competence =  Competence(searchAndRescue = true,driverTruck = true))//Search and Rescue + driver Truck
             )
             mainList.add(
                 Employee(222,"Mats Matsson",2,competence =  Competence(searchAndRescue = true,driverTruck = true,driverLadder = true))//Search and Rescue + diver both trucks
@@ -32,7 +32,7 @@ object DataSource {
                 Employee(170,"Ping Pingsson",4,competence =  Competence(searchAndRescue = true))//Only Search and Rescue
             )
             mainList.add(
-                Employee(10,"Ibrahim Ibrahimsson",1,competence =  Competence(driverTruck = true, driverLadder = true, searchAndRescueLeader = true, searchAndRescue = true))// all but chief
+                Employee(10,"Ibrahim Ibrahimsson",1,"2020-09-11",competence =  Competence(driverTruck = true, driverLadder = true, searchAndRescueLeader = true, searchAndRescue = true))// all but chief
             )
             mainList.add(
                 Employee(90,"Nils Nilsson",2,competence =  Competence(driverTruck = true,driverLadder = true))// only driver

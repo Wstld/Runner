@@ -31,14 +31,11 @@ class MainActivity : AppCompatActivity(){
             when(view.id){
                 R.id.sendRunnerBtn -> {
                     val goToSendRunner = Intent(this,SendRunnerActivity::class.java)
-
                     startActivity(goToSendRunner)
                 } //put function for send runner button.
                 R.id.addEmployeeBtn -> Toast.makeText(applicationContext, "Adding", Toast.LENGTH_SHORT).show() //put function for add employee button.
                 R.id.showFullListBtn -> {
                     val goToMainList = Intent(this,ListMain::class.java)
-                    //send data to new activity
-
                     startActivity(goToMainList)
                 }//put function for show full list button.
                 R.id.searchBtn -> Toast.makeText(applicationContext, "Searching", Toast.LENGTH_SHORT).show() //put function for search button.

@@ -7,16 +7,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.employee_list_item.view.*
 
-class SquadListRecyclerAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SquadListRecyclerAdapter(
+    val listener:SquadViewHolder.RecyclerViewItemClick
+):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var list = listOf<Employee>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return SquadViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.employee_list_item,parent,false))
+        return SquadViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.employee_list_item,parent,false),listener)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
       when(holder){
          is SquadViewHolder -> holder.apply {
-             bind(list.get(position))
+             bind(list.get(position),position)
          }
       }
     }
@@ -29,12 +31,29 @@ class SquadListRecyclerAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>()
         list = sortedList
     }
 
-    inner class SquadViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
-        val idView:TextView = itemView.main_list_id
-        val nameView:TextView = itemView.main_list_name
-        fun bind(employee: Employee){
-            idView.text = employee.id.toString()
-            nameView.text = employee.name
-        }
+}
+class SquadViewHolder(itemView:View,val listener: RecyclerViewItemClick):RecyclerView.ViewHolder(itemView),
+View.OnClickListener{
+    lateinit var employeeItem: Employee
+    var currentPos: Int = 0
+    init {
+        itemView.setOnClickListener(this)
     }
+    val idView:TextView = itemView.main_list_id
+    val nameView:TextView = itemView.main_list_name
+    fun bind(employee: Employee,position: Int){
+        idView.text = employee.id.toString()
+        nameView.text = employee.name
+        employeeItem = employee
+        currentPos = position
+    }
+
+    override fun onClick(view: View?) {
+        listener.onItemClick(employeeItem,currentPos)
+    }
+
+    interface RecyclerViewItemClick{
+        fun onItemClick(employee: Employee,position: Int){}
+    }
+
 }
