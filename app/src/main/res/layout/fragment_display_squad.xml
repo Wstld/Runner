@@ -7,16 +7,14 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-<!--        <androidx.recyclerview.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/squadList"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_margin="1dp"
-            android:id="@+id/squadList">
-        </androidx.recyclerview.widget.RecyclerView>-->
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:id="@+id/btn"/>
+            android:layout_margin="1dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
 
 
 </FrameLayout>
