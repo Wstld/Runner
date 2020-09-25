@@ -2,12 +2,16 @@ package com.example.runner
 
 import android.app.Dialog
 import android.content.Intent
+import android.content.res.Resources
+import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.media.RatingCompat
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.annotation.StyleRes
 import androidx.fragment.app.FragmentContainer
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -31,16 +35,15 @@ class SendRunnerActivity : AppCompatActivity(),SquadViewHolder.RecyclerViewItemC
         MaterialAlertDialogBuilder(this)
             .setTitle("Skicka Löpare")
             .setMessage("Är du säker på att du vill skicka ${employee.name}")
-            .setNegativeButton("Nej"){Dialog, which ->
-                Dialog.cancel()
+            .setNegativeButton("Nej"){dialog, which ->
+                dialog.cancel()
             }
             .setPositiveButton("Ja"){dialog,which ->
                 employee.setDate(employee.getDate())
                 startActivity(goToMainActivity)
+                Toast.makeText(this, "${employee.name} har skickats", Toast.LENGTH_SHORT).show()
             }
             .show()
-
-
     }
 
     fun initRecycler(data:List<Employee>,recyclerView: RecyclerView){

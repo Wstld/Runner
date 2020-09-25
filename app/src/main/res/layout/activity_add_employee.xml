@@ -57,14 +57,6 @@
                 android:layout_width="wrap_content"
                 android:gravity="center"
                 android:text="@string/employee_squad_input" />
-        <!--    <CheckBox
-                android:text="1"/>
-            <CheckBox
-                android:text="2"/>
-            <CheckBox
-                android:text="3"/>
-            <CheckBox
-                android:text="4"/>-->
             <RadioGroup
                 android:orientation="horizontal"
                 >
@@ -97,7 +89,7 @@
         >
         <TableRow
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
@@ -110,37 +102,42 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             >
             <CheckBox
-                android:layout_gravity="center"
                 android:text="@string/squadleader"
                 />
         </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            >
+            android:orientation="horizontal">
+
             <CheckBox
-                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:text="@string/driver"/>
+
             <CheckBox
-                android:layout_gravity="center"
-                android:text="@string/driver_ladder"/>
+                android:text="@string/driver_ladder"
+                android:layout_weight="1"/>
         </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            >
+            android:orientation="horizontal">
+
             <CheckBox
-                android:layout_gravity="center"
+
                 android:text="@string/search_and_rescue_leader"
-                />
+                android:layout_weight="1"/>
+
             <CheckBox
-                android:layout_gravity="center"
-                android:text="@string/search_and_rescue"/>
+
+                android:text="@string/search_and_rescue"
+                android:layout_weight="1"/>
         </TableRow>
 
         <TableRow
