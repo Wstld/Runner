@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_send_runner.*
 import kotlinx.android.synthetic.main.fragment_display_squad.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -69,6 +71,8 @@ class DisplaySquadFragment : Fragment(){
             }
 
         }
+        val addEmployeeToDisplayedListBtn = activity.findViewById<Button>(R.id.addEmployeeToDisplayedListBtn)
+        addEmployeeToDisplayedListBtn.visibility = View.VISIBLE
         return fragment
     }
 
@@ -90,10 +94,5 @@ class DisplaySquadFragment : Fragment(){
                 }
             }
     }
-/*    fun initRecyclerView(items:List<Employee>){
-        squadList.apply {
-            layoutManager = LinearLayoutManager(activity)
-            adapter = MainListRecyclerAdapter(this@DisplaySquadFragment)
-        }
-    }*/
+
 }

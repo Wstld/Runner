@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.media.RatingCompat
 import android.view.View
+import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -24,10 +25,14 @@ import java.text.FieldPosition
 
 class SendRunnerActivity : AppCompatActivity(),SquadViewHolder.RecyclerViewItemClick{
     val squadFrag = PickSquad()
+    val recyclerAdapter = SquadListRecyclerAdapter(this@SendRunnerActivity)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_send_runner)
         fragmentHandler(squadFrag)
+        val addEmployeeToDisplayBtn = findViewById<Button>(R.id.addEmployeeToDisplayedListBtn)
+        addEmployeeToDisplayBtn.setOnClickListener{displayMoreEmployees()}
     }
 
     override fun onItemClick(employee: Employee,position: Int) {
@@ -49,7 +54,6 @@ class SendRunnerActivity : AppCompatActivity(),SquadViewHolder.RecyclerViewItemC
     fun initRecycler(data:List<Employee>,recyclerView: RecyclerView){
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@SendRunnerActivity)
-            val recyclerAdapter = SquadListRecyclerAdapter(this@SendRunnerActivity)
             val spacing = RecyclerViewSpacing(30)
             addItemDecoration(spacing)
             recyclerAdapter.setData(data)
@@ -92,4 +96,38 @@ class SendRunnerActivity : AppCompatActivity(),SquadViewHolder.RecyclerViewItemC
             }
         }
     }
+    fun displayMoreEmployees(){
+        val listOfEmployees = mutableListOf<String>()
+        DataSource.data.forEach{listOfEmployees.add(it.id.toString())}
+
+        val itemsCheckd = mutableListOf<Boolean>()
+        if(itemsCheckd.isEmpty()){
+            repeat(listOfEmployees.count()){itemsCheckd.add(false)}
+        }
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Vilka vill du lägga till?")
+            .setMultiChoiceItems(
+                listOfEmployees.toTypedArray(),
+                itemsCheckd.toBooleanArray())
+                { dialog, which, isChecked ->
+                    itemsCheckd[which] = isChecked
+                }
+            .setPositiveButton("Lägg till"){dialog,which ->
+                val list = mutableListOf<Int>()
+                itemsCheckd.forEachIndexed { index, b -> if (b){list.add(listOfEmployees[index].toInt())} }
+                list.forEach { itemsCheckd -> DataSource.data.forEach{  if (it.id == itemsCheckd){recyclerAdapter.addEmployeeToList(it)} } }
+                recyclerAdapter.notifyDataSetChanged()
+                dialog.cancel()
+
+            }
+            .setNegativeButton("Stäng"){dialog,which->
+                dialog.cancel()
+            }
+
+            .show()
+
+    }
+
+
 }

@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.employee_list_item.view.*
 class SquadListRecyclerAdapter(
     val listener:SquadViewHolder.RecyclerViewItemClick
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var list = listOf<Employee>()
+    private var list = mutableListOf<Employee>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return SquadViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.employee_list_item,parent,false),listener)
     }
@@ -28,7 +28,14 @@ class SquadListRecyclerAdapter(
     }
 
     fun setData(sortedList:List<Employee>){
-        list = sortedList
+        list = sortedList.toMutableList()
+    }
+    fun addEmployeeToList(employee: Employee){
+        if(list.contains(employee)){
+            return
+        }else{list.add(employee)
+            list.sortBy { it.lastRun }}
+
     }
 
 }
@@ -43,7 +50,7 @@ View.OnClickListener{
     val nameView:TextView = itemView.main_list_name
     fun bind(employee: Employee,position: Int){
         idView.text = employee.id.toString()
-        nameView.text = employee.name
+        nameView.text = employee.lastRun.toString()
         employeeItem = employee
         currentPos = position
     }
