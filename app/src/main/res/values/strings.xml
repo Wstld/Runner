@@ -23,7 +23,6 @@
 
     //btn texts
     <string name="send_runner">Skicka Löpare</string>
-    <string name="add_staff">Lägg till</string>
     <string name="show_full_list">Visa listan</string>
 
     <string name="squad_1">Grupp 1</string>

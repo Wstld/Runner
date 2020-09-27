@@ -57,8 +57,8 @@ View.OnClickListener{
     fun bind(employee: Employee){
         mainListId.text = employee.id.toString()
         mainListName.text = employee.name
-        val test = employee.lastRun
-        date = test
+        val test = employee.competence.driverTruck
+        date = test.toString()
         //set images with if logic looking at competence. -->
     }
     interface OnItemClickListener{

@@ -21,14 +21,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/employeeIdInput"
-                android:textColor="@color/primaryLightColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_span="6"
-                android:hint="@string/employee_id_input" />
+                android:hint="@string/employee_id_input"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textColor="@color/primaryLightColor" />
         </TableRow>
         <TableRow
             android:layout_marginTop="15dp"
@@ -58,21 +61,26 @@
                 android:gravity="center"
                 android:text="@string/employee_squad_input" />
             <RadioGroup
+                android:id="@+id/squadGroupInput"
                 android:orientation="horizontal"
                 >
                 <RadioButton
+                    android:id="@+id/squadRadioBtn1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/one_numeric"/>
                 <RadioButton
+                    android:id="@+id/squadRadioBtn2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/two_numeric"/>
                 <RadioButton
+                    android:id="@+id/squadRadioBtn3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/three_numeric"/>
                 <RadioButton
+                    android:id="@+id/squadRadioBtn4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/four_numeric"/>
@@ -104,6 +112,7 @@
             android:layout_height="wrap_content"
             >
             <CheckBox
+                android:id="@+id/squadLeaderCheckBox"
                 android:text="@string/squadleader"
                 />
         </TableRow>
@@ -115,10 +124,12 @@
             android:orientation="horizontal">
 
             <CheckBox
+                android:id="@+id/driverCheckBox"
                 android:layout_weight="1"
                 android:text="@string/driver"/>
 
             <CheckBox
+                android:id="@+id/driverLadderCheckBox"
                 android:text="@string/driver_ladder"
                 android:layout_weight="1"/>
         </TableRow>
@@ -130,12 +141,12 @@
             android:orientation="horizontal">
 
             <CheckBox
-
+                android:id="@+id/searchAndRescueLeaderCheckBox"
                 android:text="@string/search_and_rescue_leader"
                 android:layout_weight="1"/>
 
             <CheckBox
-
+                android:id="@+id/searchAdnRescueCheckBox"
                 android:text="@string/search_and_rescue"
                 android:layout_weight="1"/>
         </TableRow>
@@ -146,7 +157,7 @@
             android:gravity="center"
             android:layout_marginTop="25dp">
             <Button
-                android:id="@+id/button"
+                android:id="@+id/applyBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/add_employee" />

@@ -54,7 +54,7 @@
             android:id="@+id/addEmployeeBtn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="@string/add_staff"
+            android:text="@string/add_employee"
             tools:layout_editor_absoluteX="136dp"
             app:icon="@drawable/ic_add"
             app:iconSize="35dp"

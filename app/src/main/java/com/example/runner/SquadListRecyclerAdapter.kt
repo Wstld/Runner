@@ -18,7 +18,7 @@ class SquadListRecyclerAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
       when(holder){
          is SquadViewHolder -> holder.apply {
-             bind(list.get(position),position)
+             bind(list[position],position)
          }
       }
     }
