@@ -1,9 +1,13 @@
 package com.example.runner
 
+import android.app.Activity
+import android.app.Application
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewParent
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.employee_list_item.view.*
 import java.text.DateFormat
@@ -46,8 +50,10 @@ View.OnClickListener{
     var positionNum: Int = 0
     val mainListId:TextView = itemView.main_list_id
     val mainListName:TextView = itemView.main_list_name
+
     init{
         itemView.setOnClickListener(this)
+
     }
 
     override fun onClick(view: View?) {
@@ -57,6 +63,7 @@ View.OnClickListener{
     fun bind(employee: Employee,position: Int){
         mainListId.text = employee.id.toString()
         mainListName.text = employee.name
+
        positionNum = position
 
         //set images with if logic looking at competence. -->

@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.checkbox.MaterialCheckBox
@@ -23,6 +24,9 @@ class AddEmployeeActivity : AppCompatActivity() {
         val idInput = findViewById<EditText>(R.id.employeeIdInput)
 
         val applyBtn = findViewById<Button>(R.id.applyBtn)
+
+        val lastRunHeading = findViewById<TableRow>(R.id.lastRunHeading)
+        val lastRunBody = findViewById<EditText>(R.id.lastRunBody)
 
         val squadInput = findViewById<RadioGroup>(R.id.squadGroupInput)
 
@@ -71,8 +75,12 @@ class AddEmployeeActivity : AppCompatActivity() {
             val data = DataSource.data.sortedBy { it.lastRun }
             val selectedEmployee = data[employeePosition]
 
+            lastRunBody.visibility = View.VISIBLE
+            lastRunHeading.visibility = View.VISIBLE
+
             nameInput.setText(selectedEmployee.name)
             idInput.setText(selectedEmployee.id.toString())
+
             when(selectedEmployee.squad){
                 1 ->{
                     findViewById<RadioButton>(R.id.squadRadioBtn1).isChecked = true
@@ -94,6 +102,8 @@ class AddEmployeeActivity : AppCompatActivity() {
             checkBoxSearchAndRescueLeader.isChecked = selectedEmployee.competence.searchAndRescueLeader
             checkBoxSearchAndRescue.isChecked = selectedEmployee.competence.searchAndRescue
 
+            lastRunBody.setText(selectedEmployee.lastRun)
+
             applyBtn.text = "Spara Ändringar"
             applyBtn.setOnClickListener {
                 val setSquad = when(squadInput.checkedRadioButtonId){
@@ -109,6 +119,7 @@ class AddEmployeeActivity : AppCompatActivity() {
                         selectedEmployee.name = nameInput.text.toString()
                         selectedEmployee.id = idInput.text.toString().toInt()
                         selectedEmployee.squad = setSquad
+                        selectedEmployee.lastRun = lastRunBody.text.toString()
                         selectedEmployee.competence.chief = checkBoxSquadLeader.isChecked
                         selectedEmployee.competence.driverTruck = checkBoxDriver.isChecked
                         selectedEmployee.competence.driverLadder = checkBoxDriverLadder.isChecked

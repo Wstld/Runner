@@ -150,12 +150,35 @@
                 android:text="@string/search_and_rescue"
                 android:layout_weight="1"/>
         </TableRow>
+        <TableRow
+            android:id="@+id/lastRunHeading"
+            android:visibility="invisible"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            >
+            <com.google.android.material.textview.MaterialTextView
+                android:text="Senaste Löpning:"
+                android:gravity="center"
+                android:layout_span="2"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/lastRunBody"
+                android:layout_span="1"
+                android:gravity="center"
+                android:hint="2020-12-31"
+                android:textColor="@color/primaryLightColor"
+                android:visibility="invisible" />
+
+        </TableRow>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_marginTop="25dp">
+            android:gravity="center">
             <Button
                 android:id="@+id/applyBtn"
                 android:layout_width="wrap_content"
