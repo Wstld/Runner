@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 @Parcelize
-open class Employee(val id:Int, val name:String, var squad:Int,var lastRun:String ="", var competence:Competence) : Parcelable {
+open class Employee(var id:Int, var name:String, var squad:Int, var lastRun:String ="", var competence:Competence) : Parcelable {
     init {
         lastRun.ifEmpty { lastRun = getDate() }
     }

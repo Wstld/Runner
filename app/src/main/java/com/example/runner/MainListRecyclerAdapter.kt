@@ -26,7 +26,7 @@ class MainListRecyclerAdapter(
         when(holder){
             is MainListViewHolder -> {
                 holder.apply {
-                    bind(items.get(position))
+                    bind(items[position],position)
                 }
             }
         }
@@ -43,7 +43,7 @@ class MainListRecyclerAdapter(
 
 class MainListViewHolder(itemView: View,val listener: OnItemClickListener): RecyclerView.ViewHolder(itemView),
 View.OnClickListener{
-    lateinit var date:String
+    var positionNum: Int = 0
     val mainListId:TextView = itemView.main_list_id
     val mainListName:TextView = itemView.main_list_name
     init{
@@ -51,18 +51,18 @@ View.OnClickListener{
     }
 
     override fun onClick(view: View?) {
-        listener.onItemClick(date)
+        listener.onItemClick(positionNum)
     }
 
-    fun bind(employee: Employee){
+    fun bind(employee: Employee,position: Int){
         mainListId.text = employee.id.toString()
         mainListName.text = employee.name
-        val test = employee.competence.driverTruck
-        date = test.toString()
+       positionNum = position
+
         //set images with if logic looking at competence. -->
     }
     interface OnItemClickListener{
-        fun onItemClick(name:String)
+        fun onItemClick(position: Int)
     }
 
 }

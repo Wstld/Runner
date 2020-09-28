@@ -1,10 +1,12 @@
 package com.example.runner
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_list_main.*
+import java.text.FieldPosition
 
 class ListMain : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
     lateinit var recyclerAdapter:MainListRecyclerAdapter
@@ -28,8 +30,10 @@ class ListMain : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
         }
     }
 
-    override fun onItemClick(name: String) {
-        Toast.makeText(this, "${name}", Toast.LENGTH_SHORT).show()
+    override fun onItemClick(position:Int) {
+        val showEmployee = Intent(this,AddEmployeeActivity::class.java)
+        showEmployee.putExtra(POSITION_KEY,position)
+        startActivity(showEmployee)
     }
 
 

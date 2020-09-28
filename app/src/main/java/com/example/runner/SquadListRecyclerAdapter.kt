@@ -50,7 +50,7 @@ View.OnClickListener{
     val nameView:TextView = itemView.main_list_name
     fun bind(employee: Employee,position: Int){
         idView.text = employee.id.toString()
-        nameView.text = employee.lastRun.toString()
+        nameView.text = employee.name
         employeeItem = employee
         currentPos = position
     }
