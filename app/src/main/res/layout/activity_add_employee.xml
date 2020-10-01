@@ -7,186 +7,200 @@
     tools:context=".AddEmployeeActivity"
     android:padding="15dp">
 
-    <TableLayout
-        android:layout_marginTop="50dp"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:id="@+id/table1"
-        android:stretchColumns="*"
-        >
+        android:layout_height="match_parent">
 
-        <TableRow
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/employeeIdInput"
+            <TableLayout
+                android:id="@+id/table1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_span="6"
-                android:hint="@string/employee_id_input"
-                android:inputType="number"
-                android:singleLine="true"
-                android:textColor="@color/primaryLightColor" />
-        </TableRow>
-        <TableRow
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
+                android:layout_marginTop="50dp"
+                android:stretchColumns="*">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/employeeNameInput"
-                android:textColor="@color/primaryLightColor"
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/employeeIdInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_span="6"
+                        android:hint="@string/employee_id_input"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:textColor="@color/primaryLightColor" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:gravity="center">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/employeeNameInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_span="6"
+                        android:hint="@string/employee_name_input"
+                        android:textColor="@color/primaryLightColor" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/employee_squad_input" />
+
+                    <RadioGroup
+                        android:id="@+id/squadGroupInput"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/squadRadioBtn1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/one_numeric" />
+
+                        <RadioButton
+                            android:id="@+id/squadRadioBtn2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/two_numeric" />
+
+                        <RadioButton
+                            android:id="@+id/squadRadioBtn3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/three_numeric" />
+
+                        <RadioButton
+                            android:id="@+id/squadRadioBtn4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/four_numeric" />
+                    </RadioGroup>
+
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_span="6"
-                android:hint="@string/employee_name_input" />
-        </TableRow>
+                android:stretchColumns="*">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            >
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:gravity="center"
-                android:text="@string/employee_squad_input" />
-            <RadioGroup
-                android:id="@+id/squadGroupInput"
-                android:orientation="horizontal"
-                >
-                <RadioButton
-                    android:id="@+id/squadRadioBtn1"
-                    android:layout_width="wrap_content"
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/one_numeric"/>
-                <RadioButton
-                    android:id="@+id/squadRadioBtn2"
-                    android:layout_width="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:gravity="center">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/employee_competence_input" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <CheckBox
+                        android:id="@+id/squadLeaderCheckBox"
+                        android:text="@string/squadleader" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/two_numeric"/>
-                <RadioButton
-                    android:id="@+id/squadRadioBtn3"
-                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/driverCheckBox"
+                        android:layout_weight="1"
+                        android:text="@string/driver" />
+
+                    <CheckBox
+                        android:id="@+id/driverLadderCheckBox"
+                        android:layout_weight="1"
+                        android:text="@string/driver_ladder" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/three_numeric"/>
-                <RadioButton
-                    android:id="@+id/squadRadioBtn4"
-                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/searchAndRescueLeaderCheckBox"
+                        android:layout_weight="1"
+                        android:text="@string/search_and_rescue_leader" />
+
+                    <CheckBox
+                        android:id="@+id/searchAdnRescueCheckBox"
+                        android:layout_weight="1"
+                        android:text="@string/search_and_rescue" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/lastRunHeading"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/four_numeric"/>
-            </RadioGroup>
+                    android:visibility="invisible">
 
-        </TableRow>
-    </TableLayout>
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/table1"
-        android:stretchColumns="*"
-        >
-        <TableRow
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_span="2"
+                        android:gravity="center"
+                        android:text="Senaste Löpning:" />
+                </TableRow>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:gravity="center"
-                android:text="@string/employee_competence_input" />
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            <CheckBox
-                android:id="@+id/squadLeaderCheckBox"
-                android:text="@string/squadleader"
-                />
-        </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/lastRunBody"
+                        android:backgroundTint="@color/cardview_light_background"
+                        android:text="2020-21-20"
+                        android:textColor="@color/primaryLightColor"
+                        android:visibility="invisible" />
 
-            <CheckBox
-                android:id="@+id/driverCheckBox"
-                android:layout_weight="1"
-                android:text="@string/driver"/>
+                </TableRow>
 
-            <CheckBox
-                android:id="@+id/driverLadderCheckBox"
-                android:text="@string/driver_ladder"
-                android:layout_weight="1"/>
-        </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/applyBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_employee" />
+                </TableRow>
 
-            <CheckBox
-                android:id="@+id/searchAndRescueLeaderCheckBox"
-                android:text="@string/search_and_rescue_leader"
-                android:layout_weight="1"/>
-
-            <CheckBox
-                android:id="@+id/searchAdnRescueCheckBox"
-                android:text="@string/search_and_rescue"
-                android:layout_weight="1"/>
-        </TableRow>
-        <TableRow
-            android:id="@+id/lastRunHeading"
-            android:visibility="invisible"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            >
-            <com.google.android.material.textview.MaterialTextView
-                android:text="Senaste Löpning:"
-                android:gravity="center"
-                android:layout_span="2"/>
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/lastRunBody"
-                android:layout_span="1"
-                android:gravity="center"
-                android:hint="2020-12-31"
-                android:textColor="@color/primaryLightColor"
-                android:visibility="invisible" />
-
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-            <Button
-                android:id="@+id/applyBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/add_employee" />
-        </TableRow>
-
-    </TableLayout>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

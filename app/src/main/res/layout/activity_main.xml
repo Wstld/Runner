@@ -3,84 +3,89 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    android:layout_height="wrap_content"
     android:padding="15dp"
-    >
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/sendRunnerBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    tools:context=".MainActivity">
+
+    <ScrollView
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="25dp"
-        app:cardElevation="10dp"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            >
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:src="@drawable/ic_run"
-                android:contentDescription="@string/send_runner_btn_explained"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="@string/send_runner"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="?android:attr/textColorSecondary"/>
-
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="40dp"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/sendRunnerBtn"
-        android:gravity="center"
         >
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:paddingBottom="15dp"
+                android:orientation="vertical">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/addEmployeeBtn"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="@string/add_employee"
-            tools:layout_editor_absoluteX="136dp"
-            app:icon="@drawable/ic_add"
-            app:iconSize="35dp"
-            />
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/showFullListBtn"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="15dp"
-            android:text="@string/show_full_list"
-            tools:layout_editor_absoluteX="136dp"
-            app:icon="@drawable/ic_add"
-            app:iconSize="35dp"
-            />
-        <com.google.android.material.button.MaterialButton
-            style="@style/searchBtn"
-            android:id="@+id/searchBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:icon="@drawable/ic_search"
-            app:iconSize="50dp"
-            android:layout_marginTop="40dp"
-            />
-    </LinearLayout>
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/sendRunnerBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginRight="25dp"
+                    app:cardElevation="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:contentDescription="@string/send_runner_btn_explained"
+                            android:src="@drawable/ic_run" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/send_runner"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="?android:attr/textColorSecondary" />
 
 
+                    </LinearLayout>
 
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/addEmployeeBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/add_employee"
+                    app:icon="@drawable/ic_add"
+                    app:iconSize="35dp"
+                    android:layout_marginTop="20dp"
+                     />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/showFullListBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/show_full_list"
+                    app:icon="@drawable/ic_add"
+                    app:iconSize="35dp"
+                     />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/searchBtn"
+                    style="@style/searchBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    app:icon="@drawable/ic_search"
+                    app:iconSize="50dp" />
+            </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
