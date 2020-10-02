@@ -13,13 +13,21 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.android.synthetic.main.activity_add_employee.*
 import java.time.format.DateTimeFormatterBuilder
 import java.util.*
 
 const val POSITION_KEY = "POSITION_KEY"
 const val DEFAULT_POSITION = -1
 
-class AddEmployeeActivity : AppCompatActivity() {
+class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener {
+   lateinit var selectedEmployee:Employee
+    val cal = GregorianCalendar.getInstance()
+    var day = cal.get(Calendar.DAY_OF_MONTH)
+    var month = cal.get(Calendar.MONTH)
+    var year = cal.get(Calendar.YEAR)
+    var date = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_employee)
@@ -43,10 +51,7 @@ class AddEmployeeActivity : AppCompatActivity() {
             findViewById<CheckBox>(R.id.searchAndRescueLeaderCheckBox)
         val checkBoxSearchAndRescue = findViewById<CheckBox>(R.id.searchAdnRescueCheckBox)
 
-        val cal = GregorianCalendar.getInstance()
-        var day = cal.get(Calendar.DAY_OF_MONTH)
-        var month = cal.get(Calendar.MONTH)
-        var year = cal.get(Calendar.YEAR)
+
 
 
         if (employeePosition == -1) {
@@ -92,9 +97,9 @@ class AddEmployeeActivity : AppCompatActivity() {
             }
         } else {
             val data = DataSource.data.sortedBy { it.lastRun }
-            val selectedEmployee = data[employeePosition]
+            selectedEmployee = data[employeePosition]
 
-            var date: String = ""
+
 
             lastRunBody.visibility = View.VISIBLE
             lastRunHeading.visibility = View.VISIBLE
@@ -111,6 +116,10 @@ class AddEmployeeActivity : AppCompatActivity() {
                             Toast.makeText(this, "Senast löpning har uppdaterats", Toast.LENGTH_SHORT).show()
                         }
                         test.show()
+                }else {
+                   val  datePicker = DatePickerDialog(this,this,year,month,day)
+                    datePicker.show()
+
                 }
             }
 
@@ -181,9 +190,19 @@ class AddEmployeeActivity : AppCompatActivity() {
 
 
             }
-
+        fun getDate(){}
 
         }
+
+    override fun onDateSet(datePicekr: DatePicker?, year: Int, month: Int, day: Int) {
+        var editedMonth = ""
+        if (month+1 < 10){
+            editedMonth = "0${month+1}"
+        }else{editedMonth = "${month+1}"}
+        date = "$year-$editedMonth-$day"
+        lastRunBody.text = date
+        Toast.makeText(this, "Senast löpning har uppdaterats", Toast.LENGTH_SHORT).show()
+    }
 
 
     fun createEmployee(id: Int, name: String, squad: Int, competence: Competence): Employee {
