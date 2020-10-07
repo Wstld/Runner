@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_list_main.*
 import java.text.FieldPosition
 
@@ -61,7 +62,22 @@ class ListMain : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
         startActivity(showEmployee)
     }
 
-
-
+    override fun onTrashClick(id: Int) {
+        val employee:Employee? = DataSource.data.find { it.id == id }
+        if(employee!= null ){
+            val name = employee.name
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Vill du tabort $name")
+            .setPositiveButton("Ja"){dialog,which ->
+                DataSource.data.remove(employee)
+                recyclerAdapter.submitList(DataSource.data)
+                Toast.makeText(this, "$name har tagits bort", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("Nej"){dialog,which->
+                dialog.cancel()
+            }
+            .show()
+    }
+    }
 }
 
