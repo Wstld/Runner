@@ -48,6 +48,8 @@ class DisplaySquadFragment : Fragment(){
         // Inflate the layout for this fragment
         val fragment = inflater.inflate(R.layout.fragment_display_squad, container, false)
         val recyclerView = fragment.findViewById<RecyclerView>(R.id.squadList)
+        val addEmployeeBtn = fragment.findViewById<Button>(R.id.addEmployeeToDisplayedListBtn)
+        addEmployeeBtn.setOnClickListener { activity.displayMoreEmployees() }
 
         when(btn) {
             R.id.squadOneBtn ->{
@@ -71,8 +73,6 @@ class DisplaySquadFragment : Fragment(){
             }
 
         }
-        val addEmployeeToDisplayedListBtn = activity.findViewById<Button>(R.id.addEmployeeToDisplayedListBtn)
-        addEmployeeToDisplayedListBtn.visibility = View.VISIBLE
         return fragment
     }
 

@@ -3,6 +3,9 @@ package com.example.runner
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_list_main.*
@@ -13,9 +16,31 @@ class ListMain : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val data = DataSource.data
+
         setContentView(R.layout.activity_list_main)
         initRecycler(data.sortedBy { it.lastRun })
+        val searchInput:EditText = findViewById(R.id.searchTxt)
+        searchInput.addTextChangedListener(object:TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(str: Editable?) {
+                filter(str.toString())
+            }
+        })
+
+
+
+    }
+    fun filter(str:String){
+        val filteredList = mutableListOf<Employee>()
+        DataSource.data.forEach { if (it.id.toString().toUpperCase().contains(str.toUpperCase())||it.name.toUpperCase().contains(str.toUpperCase())){filteredList.add(it)} }
+        recyclerAdapter.filterListOnSearch(filteredList.toList())
     }
 
     fun initRecycler(data:List<Employee>){
@@ -30,9 +55,9 @@ class ListMain : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
         }
     }
 
-    override fun onItemClick(position:Int) {
+    override fun onItemClick(id:Int) {
         val showEmployee = Intent(this,AddEmployeeActivity::class.java)
-        showEmployee.putExtra(POSITION_KEY,position)
+        showEmployee.putExtra(ID_KEY,id)
         startActivity(showEmployee)
     }
 

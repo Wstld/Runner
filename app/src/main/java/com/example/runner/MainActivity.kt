@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity(){
                     val goToMainList = Intent(this,ListMain::class.java)
                     startActivity(goToMainList)
                 }//put function for show full list button.
-                R.id.searchBtn -> Toast.makeText(applicationContext, "Searching", Toast.LENGTH_SHORT).show() //put function for search button.
 
             }
         }
@@ -50,13 +49,12 @@ class MainActivity : AppCompatActivity(){
         val sendRunnerBtn = findViewById<CardView>(R.id.sendRunnerBtn)
         val addEmployeeBtn = findViewById<Button>(R.id.addEmployeeBtn)
         val showFullListBtn = findViewById<Button>(R.id.showFullListBtn)
-        val searchBtn = findViewById<Button>(R.id.searchBtn)
+
 
         //set listener
         sendRunnerBtn.setOnClickListener(clickListener)
         addEmployeeBtn.setOnClickListener(clickListener)
         showFullListBtn.setOnClickListener(clickListener)
-        searchBtn.setOnClickListener(clickListener)
 
 
 

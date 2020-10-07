@@ -17,8 +17,8 @@ import kotlinx.android.synthetic.main.activity_add_employee.*
 import java.time.format.DateTimeFormatterBuilder
 import java.util.*
 
-const val POSITION_KEY = "POSITION_KEY"
-const val DEFAULT_POSITION = -1
+const val ID_KEY = "ID_KEY"
+const val DEFAULT_ID = -1
 
 class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener {
    lateinit var selectedEmployee:Employee
@@ -32,7 +32,8 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_employee)
         val goToMainScreen = Intent(this, MainActivity::class.java)
-        val employeePosition = intent.getIntExtra(POSITION_KEY, DEFAULT_POSITION)
+        val employeeId = intent.getIntExtra(ID_KEY, DEFAULT_ID)
+
         //Views in activity
         val nameInput = findViewById<EditText>(R.id.employeeNameInput)
         val idInput = findViewById<EditText>(R.id.employeeIdInput)
@@ -54,7 +55,7 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
 
 
 
-        if (employeePosition == -1) {
+        if (employeeId == -1) {
             //click listener for apply Btn.
             applyBtn.setOnClickListener {
                 val setSquad = when (squadInput.checkedRadioButtonId) {
@@ -97,10 +98,12 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
             }
         } else {
             val data = DataSource.data.sortedBy { it.lastRun }
-            selectedEmployee = data[employeePosition]
+            // tabort sort, lägg till filtrering och indexering på tjänste nr.
+            val selectedEmployee = DataSource.data.find { it.id == employeeId }
+            //if not null if else!
 
 
-
+            if (selectedEmployee != null){
             lastRunBody.visibility = View.VISIBLE
             lastRunHeading.visibility = View.VISIBLE
             lastRunBody.setOnClickListener {
@@ -108,9 +111,11 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                   val test =  DatePickerDialog(this,R.style.calenderPick)
                         test.setOnDateSetListener{dialog,year,month,day ->
                             var editedMonth = ""
-                            if (month+1 < 10){
-                                editedMonth = "0${month+1}"
-                            }else{editedMonth = "${month+1}"}
+                            editedMonth = if (month+1 < 10){
+                                "0${month+1}"
+                            }else{
+                                "${month+1}"
+                            }
                             date = "$year-$editedMonth-$day"
                             lastRunBody.text = date
                             Toast.makeText(this, "Senast löpning har uppdaterats", Toast.LENGTH_SHORT).show()
@@ -189,23 +194,27 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                 }
 
 
+            }else{
+                //send back to main with error msg.
             }
-        fun getDate(){}
-
+        }
+ 
         }
 
     override fun onDateSet(datePicekr: DatePicker?, year: Int, month: Int, day: Int) {
         var editedMonth = ""
-        if (month+1 < 10){
-            editedMonth = "0${month+1}"
-        }else{editedMonth = "${month+1}"}
+        editedMonth = if (month+1 < 10){
+            "0${month+1}"
+        }else{
+            "${month+1}"
+        }
         date = "$year-$editedMonth-$day"
         lastRunBody.text = date
         Toast.makeText(this, "Senast löpning har uppdaterats", Toast.LENGTH_SHORT).show()
     }
 
 
-    fun createEmployee(id: Int, name: String, squad: Int, competence: Competence): Employee {
+    private fun createEmployee(id: Int, name: String, squad: Int, competence: Competence): Employee {
             return Employee(id = id, name = name, squad = squad, competence = competence)
         }
     }

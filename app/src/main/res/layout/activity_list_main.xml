@@ -7,18 +7,26 @@
     tools:context=".ListMain"
     android:padding="15dp">
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/searchTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_input"
+            android:layout_margin="10dp"
+            android:textColor="@color/primaryLightColor"/>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintLeft_toRightOf="parent"
-            android:layout_margin="1dp"
+            android:layout_margin="5dp"
             android:id="@+id/mainListRecycler">
         </androidx.recyclerview.widget.RecyclerView>
     </androidx.appcompat.widget.LinearLayoutCompat>

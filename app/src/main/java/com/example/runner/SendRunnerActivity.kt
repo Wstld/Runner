@@ -31,8 +31,7 @@ class SendRunnerActivity : AppCompatActivity(),SquadViewHolder.RecyclerViewItemC
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_send_runner)
         fragmentHandler(squadFrag)
-        val addEmployeeToDisplayBtn = findViewById<Button>(R.id.addEmployeeToDisplayedListBtn)
-        addEmployeeToDisplayBtn.setOnClickListener{displayMoreEmployees()}
+
     }
 
     override fun onItemClick(employee: Employee,position: Int) {

@@ -22,7 +22,7 @@ class MainListRecyclerAdapter(
     private var items:List<Employee> = listOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MainListViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.employee_list_item,parent,false,),listener
+            LayoutInflater.from(parent.context).inflate(R.layout.employee_list_item_w_remove,parent,false,),listener
         )
     }
 
@@ -30,7 +30,7 @@ class MainListRecyclerAdapter(
         when(holder){
             is MainListViewHolder -> {
                 holder.apply {
-                    bind(items[position],position)
+                    bind(items[position])
                 }
             }
         }
@@ -42,12 +42,16 @@ class MainListRecyclerAdapter(
     fun submitList(mainList:List<Employee>){
         items = mainList
     }
+    fun filterListOnSearch(list:List<Employee>){
+        items = list
+        notifyDataSetChanged()
+    }
 
 }
 
 class MainListViewHolder(itemView: View,val listener: OnItemClickListener): RecyclerView.ViewHolder(itemView),
 View.OnClickListener{
-    var positionNum: Int = 0
+    var employeeId: Int = 0
     val mainListId:TextView = itemView.main_list_id
     val mainListName:TextView = itemView.main_list_name
 
@@ -57,19 +61,18 @@ View.OnClickListener{
     }
 
     override fun onClick(view: View?) {
-        listener.onItemClick(positionNum)
+        listener.onItemClick(employeeId)
     }
 
-    fun bind(employee: Employee,position: Int){
+    fun bind(employee: Employee){
         mainListId.text = employee.id.toString()
         mainListName.text = employee.name
-
-       positionNum = position
+        employeeId = employee.id
 
         //set images with if logic looking at competence. -->
     }
     interface OnItemClickListener{
-        fun onItemClick(position: Int)
+        fun onItemClick(id: Int)
     }
 
 }

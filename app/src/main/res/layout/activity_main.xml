@@ -77,14 +77,6 @@
                     app:iconSize="35dp"
                      />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/searchBtn"
-                    style="@style/searchBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    app:icon="@drawable/ic_search"
-                    app:iconSize="50dp" />
             </LinearLayout>
     </ScrollView>
 

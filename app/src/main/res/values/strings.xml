@@ -5,6 +5,7 @@
     <string name="employee_name_input">Namn</string>
     <string name="employee_squad_input">Grupp</string>
     <string name="employee_competence_input">Kompetenser</string>
+    <string name="search_input">Sök</string>
 
     //numbers
     <string name="one_numeric">1</string>
