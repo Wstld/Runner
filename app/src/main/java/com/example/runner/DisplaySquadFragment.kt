@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_send_runner.*
 import kotlinx.android.synthetic.main.fragment_display_squad.*
 
-// TODO: Rename parameter arguments, choose names that match
+
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -26,7 +26,7 @@ private const val ARG_PARAM2 = "param2"
 class DisplaySquadFragment : Fragment(){
 
 
-    // TODO: Rename and change types of parameters
+
     private var btn: Int? = null
 
 
@@ -85,7 +85,7 @@ class DisplaySquadFragment : Fragment(){
          * @param param2 Parameter 2.
          * @return A new instance of fragment DisplaySquadFragment.
          */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(btn: Int) =
             DisplaySquadFragment().apply {

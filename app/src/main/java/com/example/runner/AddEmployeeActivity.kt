@@ -48,13 +48,12 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
         val checkBoxSquadLeader = findViewById<CheckBox>(R.id.squadLeaderCheckBox)
         val checkBoxDriver = findViewById<CheckBox>(R.id.driverCheckBox)
         val checkBoxDriverLadder = findViewById<CheckBox>(R.id.driverLadderCheckBox)
-        val checkBoxSearchAndRescueLeader =
-            findViewById<CheckBox>(R.id.searchAndRescueLeaderCheckBox)
+        val checkBoxSearchAndRescueLeader = findViewById<CheckBox>(R.id.searchAndRescueLeaderCheckBox)
         val checkBoxSearchAndRescue = findViewById<CheckBox>(R.id.searchAdnRescueCheckBox)
 
 
 
-
+// if fragment is opened for adding new employee
         if (employeeId == -1) {
             //click listener for apply Btn.
             applyBtn.setOnClickListener {
@@ -66,8 +65,8 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                     else -> 0
                 }
 
-                val setName = nameInput.text.toString()
-                val setId = idInput.text.toString().toInt()
+                val setName = nameInput.text.toString()?:""
+                val setId = if (idInput.text.isNullOrBlank()){-1}else{idInput.text.toString().toInt()}
 
                 //checkbox values
                 val sqdLeader = checkBoxSquadLeader.isChecked
@@ -75,32 +74,39 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                 val driverLadder = checkBoxDriverLadder.isChecked
                 val sarLeader = checkBoxSearchAndRescueLeader.isChecked
                 val sar = checkBoxSearchAndRescue.isChecked
+                val competenceValues = arrayListOf<Boolean>(sqdLeader,driver,driverLadder,sarLeader,sar)
 
+                if(isName(setName) && setId >= 0 && setSquad > 0 && hasCompetence(competenceValues)){
                 MaterialAlertDialogBuilder(this)
                     .setTitle("Vill du lägga till $setName?")
                     .setPositiveButton("Ja")
                     { dialog, which ->
-                        DataSource.data.add(
-                            createEmployee(
-                                setId,
-                                setName,
-                                setSquad,
-                                Competence(sqdLeader, driver, driverLadder, sarLeader, sar)
+                            DataSource.data.add(
+                                createEmployee(
+                                    setId,
+                                    setName,
+                                    setSquad,
+                                    Competence(sqdLeader, driver, driverLadder, sarLeader, sar)
+                                )
                             )
-                        )
-                        startActivity(goToMainScreen)
-                        Toast.makeText(this, "$setName har laggts till", Toast.LENGTH_SHORT).show()
+                            startActivity(goToMainScreen)
+                            Toast.makeText(this, "$setName har laggts till", Toast.LENGTH_SHORT)
+                                .show()
+
                     }
                     .setNegativeButton("Nej") { dialog, which ->
                         dialog.cancel()
                     }
                     .show()
+            } else {
+                    // When error in input occurs.
+                    inputErrorHandler(isName(setName),setSquad,setId,hasCompetence(competenceValues))
+                }
             }
-        } else {
-            val data = DataSource.data.sortedBy { it.lastRun }
-            // tabort sort, lägg till filtrering och indexering på tjänste nr.
+        }
+        //if fragment is opened to edit existing employee
+        else{
             val selectedEmployee = DataSource.data.find { it.id == employeeId }
-            //if not null if else!
 
 
             if (selectedEmployee != null){
@@ -150,11 +156,10 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                 checkBoxSquadLeader.isChecked = selectedEmployee.competence.chief
                 checkBoxDriver.isChecked = selectedEmployee.competence.driverTruck
                 checkBoxDriverLadder.isChecked = selectedEmployee.competence.driverLadder
-                checkBoxSearchAndRescueLeader.isChecked =
-                    selectedEmployee.competence.searchAndRescueLeader
+                checkBoxSearchAndRescueLeader.isChecked = selectedEmployee.competence.searchAndRescueLeader
                 checkBoxSearchAndRescue.isChecked = selectedEmployee.competence.searchAndRescue
 
-                lastRunBody.setText(selectedEmployee.lastRun)
+                lastRunBody.text = selectedEmployee.lastRun
 
                 applyBtn.text = "Spara Ändringar"
                 applyBtn.setOnClickListener {
@@ -211,6 +216,26 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
         date = "$year-$editedMonth-$day"
         lastRunBody.text = date
         Toast.makeText(this, "Senast löpning har uppdaterats", Toast.LENGTH_SHORT).show()
+    }
+
+    fun isName(string: String):Boolean{
+        return !string.contains("""[^\w\s*]+|[\d]""".toRegex())&&string.isNotEmpty()
+    }
+
+    fun hasCompetence(arrayList: ArrayList<Boolean>):Boolean{
+        return arrayList.contains(element = true)
+    }
+
+    fun inputErrorHandler(name:Boolean,squad: Int,id: Int,competence: Boolean){
+        if(!name){
+            Toast.makeText(this, "Fyll i namn!", Toast.LENGTH_SHORT).show()
+        }else if (id < 0){
+            Toast.makeText(this, "Fyll i nummer!", Toast.LENGTH_SHORT).show()
+        }else if (squad<=0){
+            Toast.makeText(this, "Fyll i grupp!", Toast.LENGTH_SHORT).show()
+        }else if (!competence){
+            Toast.makeText(this, "Fyll i kompetenser!", Toast.LENGTH_SHORT).show()
+        }
     }
 
 

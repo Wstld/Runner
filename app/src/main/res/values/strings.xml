@@ -35,8 +35,7 @@
 
     //image explanations
     <string name="send_runner_btn_explained">"En bild på brandman, klicka för att skicka löpare"</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 
 </resources>

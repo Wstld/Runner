@@ -29,14 +29,13 @@
                     android:gravity="center">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/employeeIdInput"
+                        android:id="@+id/employeeNameInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_span="6"
-                        android:hint="@string/employee_id_input"
-                        android:inputType="number"
-                        android:singleLine="true"
+                        android:hint="@string/employee_name_input"
+                        android:inputType="textPersonName"
                         android:textColor="@color/primaryLightColor" />
                 </TableRow>
 
@@ -46,15 +45,17 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
                     android:gravity="center">
-
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/employeeNameInput"
+                        android:id="@+id/employeeIdInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_span="6"
-                        android:hint="@string/employee_name_input"
+                        android:hint="@string/employee_id_input"
+                        android:inputType="number"
+                        android:singleLine="true"
                         android:textColor="@color/primaryLightColor" />
+
                 </TableRow>
 
                 <TableRow
