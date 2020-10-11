@@ -162,17 +162,10 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                 checkBoxSquadLeader.isChecked = selectedEmployee.competence.chief
                 checkBoxDriver.isChecked = selectedEmployee.competence.driverTruck
                 checkBoxDriverLadder.isChecked = selectedEmployee.competence.driverLadder
-                checkBoxSearchAndRescueLeader.isChecked =
-                    selectedEmployee.competence.searchAndRescueLeader
+                checkBoxSearchAndRescueLeader.isChecked = selectedEmployee.competence.searchAndRescueLeader
                 checkBoxSearchAndRescue.isChecked = selectedEmployee.competence.searchAndRescue
 
-                val listOfEmployeeCompetence: ArrayList<Boolean> = arrayListOf(
-                    selectedEmployee.competence.chief,
-                    selectedEmployee.competence.driverTruck,
-                    selectedEmployee.competence.driverLadder,
-                    selectedEmployee.competence.searchAndRescueLeader,
-                    selectedEmployee.competence.searchAndRescue
-                )
+
 
 
                 lastRunBody.text = selectedEmployee.lastRun
@@ -186,6 +179,15 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                         R.id.squadRadioBtn4 -> 4
                         else -> 0
                     }
+
+                    val listOfEmployeeCompetence: ArrayList<Boolean> = arrayListOf(
+                        checkBoxSquadLeader.isChecked,
+                        checkBoxDriver.isChecked,
+                        checkBoxDriverLadder.isChecked,
+                        checkBoxSearchAndRescueLeader.isChecked,
+                        checkBoxSearchAndRescue.isChecked
+                    )
+
                     if(isName(nameInput.text.toString()) && !idInput.text.isNullOrEmpty() && hasCompetence(listOfEmployeeCompetence)) {
                         MaterialAlertDialogBuilder(this)
                             .setTitle("Är du säker")
