@@ -16,6 +16,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_add_employee.*
 import java.time.format.DateTimeFormatterBuilder
 import java.util.*
+import kotlin.collections.ArrayList
 
 const val ID_KEY = "ID_KEY"
 const val DEFAULT_ID = -1
@@ -105,34 +106,39 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
             }
         }
         //if fragment is opened to edit existing employee
-        else{
+        else {
             val selectedEmployee = DataSource.data.find { it.id == employeeId }
 
 
-            if (selectedEmployee != null){
-            lastRunBody.visibility = View.VISIBLE
-            lastRunHeading.visibility = View.VISIBLE
-            lastRunBody.setOnClickListener {
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                  val test =  DatePickerDialog(this,R.style.calenderPick)
-                        test.setOnDateSetListener{dialog,year,month,day ->
+            if (selectedEmployee != null) {
+                lastRunBody.visibility = View.VISIBLE
+                lastRunHeading.visibility = View.VISIBLE
+
+                //Date picker for lastrun btn
+                lastRunBody.setOnClickListener {
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                        val test = DatePickerDialog(this, R.style.calenderPick)
+                        test.setOnDateSetListener { dialog, year, month, day ->
                             var editedMonth = ""
-                            editedMonth = if (month+1 < 10){
-                                "0${month+1}"
-                            }else{
-                                "${month+1}"
+                            editedMonth = if (month + 1 < 10) {
+                                "0${month + 1}"
+                            } else {
+                                "${month + 1}"
                             }
                             date = "$year-$editedMonth-$day"
                             lastRunBody.text = date
-                            Toast.makeText(this, "Senast löpning har uppdaterats", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this,
+                                "Senast löpning har uppdaterats",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                         test.show()
-                }else {
-                   val  datePicker = DatePickerDialog(this,this,year,month,day)
-                    datePicker.show()
-
+                    } else {
+                        val datePicker = DatePickerDialog(this, this, year, month, day)
+                        datePicker.show()
+                    }
                 }
-            }
 
 
                 nameInput.setText(selectedEmployee.name)
@@ -156,8 +162,18 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                 checkBoxSquadLeader.isChecked = selectedEmployee.competence.chief
                 checkBoxDriver.isChecked = selectedEmployee.competence.driverTruck
                 checkBoxDriverLadder.isChecked = selectedEmployee.competence.driverLadder
-                checkBoxSearchAndRescueLeader.isChecked = selectedEmployee.competence.searchAndRescueLeader
+                checkBoxSearchAndRescueLeader.isChecked =
+                    selectedEmployee.competence.searchAndRescueLeader
                 checkBoxSearchAndRescue.isChecked = selectedEmployee.competence.searchAndRescue
+
+                val listOfEmployeeCompetence: ArrayList<Boolean> = arrayListOf(
+                    selectedEmployee.competence.chief,
+                    selectedEmployee.competence.driverTruck,
+                    selectedEmployee.competence.driverLadder,
+                    selectedEmployee.competence.searchAndRescueLeader,
+                    selectedEmployee.competence.searchAndRescue
+                )
+
 
                 lastRunBody.text = selectedEmployee.lastRun
 
@@ -170,53 +186,73 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                         R.id.squadRadioBtn4 -> 4
                         else -> 0
                     }
-                    MaterialAlertDialogBuilder(this)
-                        .setTitle("Är du säker")
-                        .setPositiveButton("Ja") { dialog, which ->
-                            selectedEmployee.name = nameInput.text.toString()
-                            selectedEmployee.id = idInput.text.toString().toInt()
-                            selectedEmployee.squad = setSquad
-                            selectedEmployee.lastRun = lastRunBody.text.toString()
-                            selectedEmployee.competence.chief = checkBoxSquadLeader.isChecked
-                            selectedEmployee.competence.driverTruck = checkBoxDriver.isChecked
-                            selectedEmployee.competence.driverLadder =
-                                checkBoxDriverLadder.isChecked
-                            selectedEmployee.competence.searchAndRescueLeader =
-                                checkBoxSearchAndRescueLeader.isChecked
-                            selectedEmployee.competence.searchAndRescue =
-                                checkBoxSearchAndRescue.isChecked
-                            startActivity(goToMainScreen)
-                            Toast.makeText(
-                                this,
-                                "${selectedEmployee.id} har uppdaterats",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                    if(isName(nameInput.text.toString()) && !idInput.text.isNullOrEmpty() && hasCompetence(listOfEmployeeCompetence)) {
+                        MaterialAlertDialogBuilder(this)
+                            .setTitle("Är du säker")
+                            .setPositiveButton("Ja") { dialog, which ->
+
+                                selectedEmployee.name = nameInput.text.toString()
+                                selectedEmployee.id = idInput.text.toString().toInt()
+                                selectedEmployee.squad = setSquad
+                                selectedEmployee.lastRun = lastRunBody.text.toString()
+                                selectedEmployee.competence.chief = checkBoxSquadLeader.isChecked
+                                selectedEmployee.competence.driverTruck = checkBoxDriver.isChecked
+                                selectedEmployee.competence.driverLadder =
+                                    checkBoxDriverLadder.isChecked
+                                selectedEmployee.competence.searchAndRescueLeader =
+                                    checkBoxSearchAndRescueLeader.isChecked
+                                selectedEmployee.competence.searchAndRescue =
+                                    checkBoxSearchAndRescue.isChecked
+                                startActivity(goToMainScreen)
+                                Toast.makeText(
+                                    this,
+                                    "${selectedEmployee.id} har uppdaterats",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                            }
+                            .setNegativeButton("Nej") { dialog, which ->
+                                dialog.cancel()
+                            }
+                            .show()
+                    }else {
+                        if (idInput.text.isNullOrEmpty()){
+                            inputErrorHandler(
+                                isName(nameInput.text.toString()),
+                                setSquad,
+                                -1,
+                                hasCompetence(listOfEmployeeCompetence)
+                            )
+                        }else {
+                            inputErrorHandler(
+                                isName(nameInput.text.toString()),
+                                setSquad,
+                                idInput.text.toString().toInt(),
+                                hasCompetence(listOfEmployeeCompetence)
+                            )
                         }
-                        .setNegativeButton("Nej") { dialog, which ->
-                            dialog.cancel()
-                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+
+
+                override fun onDateSet(datePicekr: DatePicker?, year: Int, month: Int, day: Int) {
+                    var editedMonth = ""
+                    editedMonth = if (month + 1 < 10) {
+                        "0${month + 1}"
+                    } else {
+                        "${month + 1}"
+                    }
+                    date = "$year-$editedMonth-$day"
+                    lastRunBody.text = date
+                    Toast.makeText(this, "Senast löpning har uppdaterats", Toast.LENGTH_SHORT)
                         .show()
                 }
 
-
-            }else{
-                //send back to main with error msg.
-            }
-        }
- 
-        }
-
-    override fun onDateSet(datePicekr: DatePicker?, year: Int, month: Int, day: Int) {
-        var editedMonth = ""
-        editedMonth = if (month+1 < 10){
-            "0${month+1}"
-        }else{
-            "${month+1}"
-        }
-        date = "$year-$editedMonth-$day"
-        lastRunBody.text = date
-        Toast.makeText(this, "Senast löpning har uppdaterats", Toast.LENGTH_SHORT).show()
-    }
 
     fun isName(string: String):Boolean{
         return !string.contains("""[^\w\s*]+|[\d]""".toRegex())&&string.isNotEmpty()
