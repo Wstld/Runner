@@ -11,15 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_list_main.*
 import java.text.FieldPosition
-
+//Main list activity. Holds functionality for Main list recyclerview.
 class ListMain : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
     lateinit var recyclerAdapter:MainListRecyclerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val data = DataSource.data
-
         setContentView(R.layout.activity_list_main)
         initRecycler(data.sortedBy { it.lastRun })
+
+        //search input and on change listener.
         val searchInput:EditText = findViewById(R.id.searchTxt)
         searchInput.addTextChangedListener(object:TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -38,30 +39,37 @@ class ListMain : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
 
 
     }
+    //search/filter logic for search input.
     fun filter(str:String){
         val filteredList = mutableListOf<Employee>()
         DataSource.data.forEach { if (it.id.toString().toUpperCase().contains(str.toUpperCase())||it.name.toUpperCase().contains(str.toUpperCase())){filteredList.add(it)} }
         recyclerAdapter.filterListOnSearch(filteredList.toList())
     }
 
+
     fun initRecycler(data:List<Employee>){
+        // mainListRecycler is located in activity_list_main.xml
         mainListRecycler.apply {
             layoutManager = LinearLayoutManager(this@ListMain)
+            //adds spacing to recyclerview
             val spacing = RecyclerViewSpacing(30)
             addItemDecoration(spacing)
+            //set adapter and click handling through activity.
             recyclerAdapter = MainListRecyclerAdapter(this@ListMain)
             recyclerAdapter.submitList(data)
             adapter = recyclerAdapter
 
         }
     }
-
+    //click handling interfaced through mainlist viewholder, employees selected through Id.
+    //Item clicked opens change screen for employee.
     override fun onItemClick(id:Int) {
         val showEmployee = Intent(this,AddEmployeeActivity::class.java)
         showEmployee.putExtra(ID_KEY,id)
         startActivity(showEmployee)
     }
 
+    //trashcan click removes selected employee.
     override fun onTrashClick(id: Int) {
         val employee:Employee? = DataSource.data.find { it.id == id }
         if(employee!= null ){

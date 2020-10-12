@@ -26,21 +26,21 @@ class MainActivity : AppCompatActivity(){
 
 
 
-        //Click listener
+        //orientation logic.
         val clickListener = View.OnClickListener { view ->
             when(view.id){
                 R.id.sendRunnerBtn -> {
                     val goToSendRunner = Intent(this,SendRunnerActivity::class.java)
                     startActivity(goToSendRunner)
-                } //put function for send runner button.
+                }
                 R.id.addEmployeeBtn -> {
                     val goToAddEmployeeActivity = Intent(this,AddEmployeeActivity::class.java)
                     startActivity(goToAddEmployeeActivity)
-                } //put function for add employee button.
+                }
                 R.id.showFullListBtn -> {
                     val goToMainList = Intent(this,ListMain::class.java)
                     startActivity(goToMainList)
-                }//put function for show full list button.
+                }
 
             }
         }
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(){
 
     }
 
-//create custom menu items
+//Inflates custom menu.
     override fun onCreatePanelMenu(featureId: Int, menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu,menu)
         return true
@@ -69,12 +69,12 @@ class MainActivity : AppCompatActivity(){
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
        return when(item.itemId){
             R.id.mainMenuSettings -> {
-                //add what to do on Settings klick.
+                //add what to do on Settings click.
                 Toast.makeText(applicationContext, "Klicked Settings", Toast.LENGTH_SHORT).show()
                 true
             }
            R.id.mainMenuOptions -> {
-               //Add what to do on burgerMenu klick.
+               //Add what to do on burgerMenu click.
                Toast.makeText(applicationContext, "Klicked Settings", Toast.LENGTH_SHORT).show()
                true
            }

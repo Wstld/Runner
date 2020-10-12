@@ -24,16 +24,20 @@ import kotlinx.android.synthetic.main.fragment_display_squad.*
 import java.text.FieldPosition
 
 class SendRunnerActivity : AppCompatActivity(),SquadViewHolder.RecyclerViewItemClick{
+    //init picksquad fragment
     val squadFrag = PickSquad()
+
     val recyclerAdapter = SquadListRecyclerAdapter(this@SendRunnerActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_send_runner)
+        //
         fragmentHandler(squadFrag)
 
     }
 
+    //Send runner functionality, updates employee.lastrun
     override fun onItemClick(employee: Employee,position: Int) {
         val goToMainActivity = Intent(this,MainActivity::class.java)
         MaterialAlertDialogBuilder(this)
@@ -49,7 +53,7 @@ class SendRunnerActivity : AppCompatActivity(),SquadViewHolder.RecyclerViewItemC
             }
             .show()
     }
-
+    //recyclerview for DisplaySquadFragment.
     fun initRecycler(data:List<Employee>,recyclerView: RecyclerView){
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@SendRunnerActivity)
@@ -59,6 +63,8 @@ class SendRunnerActivity : AppCompatActivity(),SquadViewHolder.RecyclerViewItemC
             adapter = recyclerAdapter
         }
     }
+
+
     fun fragmentHandler(fragment:Fragment){
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()
@@ -74,10 +80,10 @@ class SendRunnerActivity : AppCompatActivity(),SquadViewHolder.RecyclerViewItemC
         }
 
     }
+    //Handles clicked squad in SquadFragment and forward value to DisplaySquadFragment.
     fun selectedSquadHandler(btnId:Int){
         when(btnId){
             R.id.squadOneBtn -> {
-                //skickar med vilken knapp som tryckts och uppdaterar fragmentet.
                 val listFragment = DisplaySquadFragment.newInstance(btnId)
                 fragmentHandler(listFragment)
             }
@@ -95,10 +101,14 @@ class SendRunnerActivity : AppCompatActivity(),SquadViewHolder.RecyclerViewItemC
             }
         }
     }
+
+    //Add extra employee to displayed list .
     fun displayMoreEmployees(){
+        // list of employee id's.
         val listOfEmployees = mutableListOf<String>()
         DataSource.data.forEach{listOfEmployees.add(it.id.toString())}
 
+        //Default list of False values according to amount of employees.
         val itemsCheckd = mutableListOf<Boolean>()
         if(itemsCheckd.isEmpty()){
             repeat(listOfEmployees.count()){itemsCheckd.add(false)}
@@ -110,11 +120,14 @@ class SendRunnerActivity : AppCompatActivity(),SquadViewHolder.RecyclerViewItemC
                 listOfEmployees.toTypedArray(),
                 itemsCheckd.toBooleanArray())
                 { dialog, which, isChecked ->
+                    //updates previous false values in itemschecked.
                     itemsCheckd[which] = isChecked
                 }
             .setPositiveButton("Lägg till"){dialog,which ->
                 val list = mutableListOf<Int>()
+                //adds id of checked employees to list.
                 itemsCheckd.forEachIndexed { index, b -> if (b){list.add(listOfEmployees[index].toInt())} }
+                //finds these employees by id and adds to adapter and notifies data change
                 list.forEach { itemsCheckd -> DataSource.data.forEach{  if (it.id == itemsCheckd){recyclerAdapter.addEmployeeToList(it)} } }
                 recyclerAdapter.notifyDataSetChanged()
                 dialog.cancel()

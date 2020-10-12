@@ -33,6 +33,8 @@ class DisplaySquadFragment : Fragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
+
+            //Gets int according to clicked btn in previous fragment. Used to filter employees according to squad.
             btn = it.getInt(ARG_PARAM1)
 
         }
@@ -44,13 +46,16 @@ class DisplaySquadFragment : Fragment(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //access parent activity for this fragment.
         val activity: SendRunnerActivity = activity as SendRunnerActivity
         // Inflate the layout for this fragment
         val fragment = inflater.inflate(R.layout.fragment_display_squad, container, false)
         val recyclerView = fragment.findViewById<RecyclerView>(R.id.squadList)
         val addEmployeeBtn = fragment.findViewById<Button>(R.id.addEmployeeToDisplayedListBtn)
+
         addEmployeeBtn.setOnClickListener { activity.displayMoreEmployees() }
 
+        //filter logic for recyclerview according to previously clicked btn in PickSquad fragment.
         when(btn) {
             R.id.squadOneBtn ->{
                 val squad1 = DataSource.data.filter { it.squad==1 }.sortedBy { it.lastRun }
@@ -73,6 +78,7 @@ class DisplaySquadFragment : Fragment(){
             }
 
         }
+        //display fragment.
         return fragment
     }
 

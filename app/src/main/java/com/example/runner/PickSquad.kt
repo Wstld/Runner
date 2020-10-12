@@ -44,7 +44,9 @@ class PickSquad : Fragment() {
         // Inflate the layout for this fragment
         val fragment = inflater.inflate(R.layout.fragment_pick_squad, container, false)
         val activity: SendRunnerActivity = activity as SendRunnerActivity
+
         val clickListener = View.OnClickListener { view ->
+            // forwards view id to handler in send runner activity.
             activity.selectedSquadHandler(view.id)
         }
 

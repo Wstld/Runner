@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.employee_list_item.view.*
 
+// --------------------- Basically same as MainListRecyclerAdapter ---------------------------------------
+
 class SquadListRecyclerAdapter(
     val listener:SquadViewHolder.RecyclerViewItemClick
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {

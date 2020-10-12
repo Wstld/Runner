@@ -18,11 +18,15 @@ import java.time.format.DateTimeFormatterBuilder
 import java.util.*
 import kotlin.collections.ArrayList
 
+//constants for intentExtras.
 const val ID_KEY = "ID_KEY"
 const val DEFAULT_ID = -1
 
 class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener {
-   lateinit var selectedEmployee:Employee
+
+    lateinit var selectedEmployee:Employee
+
+    //set date.
     val cal = GregorianCalendar.getInstance()
     var day = cal.get(Calendar.DAY_OF_MONTH)
     var month = cal.get(Calendar.MONTH)
@@ -32,7 +36,9 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_employee)
+
         val goToMainScreen = Intent(this, MainActivity::class.java)
+        //get employee if any.
         val employeeId = intent.getIntExtra(ID_KEY, DEFAULT_ID)
 
         //Views in activity
@@ -54,10 +60,11 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
 
 
 
-// if fragment is opened for adding new employee
+// if fragment is opened for adding new employee, (emlpoyeeId = defaultvalue from constant)
         if (employeeId == -1) {
-            //click listener for apply Btn.
+
             applyBtn.setOnClickListener {
+                //radioBtn input.
                 val setSquad = when (squadInput.checkedRadioButtonId) {
                     R.id.squadRadioBtn1 -> 1
                     R.id.squadRadioBtn2 -> 2
@@ -65,7 +72,7 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                     R.id.squadRadioBtn4 -> 4
                     else -> 0
                 }
-
+                //name and id input.
                 val setName = nameInput.text.toString()?:""
                 val setId = if (idInput.text.isNullOrBlank()){-1}else{idInput.text.toString().toInt()}
 
@@ -77,6 +84,7 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                 val sar = checkBoxSearchAndRescue.isChecked
                 val competenceValues = arrayListOf<Boolean>(sqdLeader,driver,driverLadder,sarLeader,sar)
 
+                //input check.
                 if(isName(setName) && setId >= 0 && setSquad > 0 && hasCompetence(competenceValues)){
                 MaterialAlertDialogBuilder(this)
                     .setTitle("Vill du lägga till $setName?")
@@ -107,15 +115,22 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
         }
         //if fragment is opened to edit existing employee
         else {
+            //find employee in datasource based on Id.
             val selectedEmployee = DataSource.data.find { it.id == employeeId }
 
-
+            //null safety.
             if (selectedEmployee != null) {
+
+                //Display date for last run value.
                 lastRunBody.visibility = View.VISIBLE
                 lastRunHeading.visibility = View.VISIBLE
 
-                //Date picker for lastrun btn
+                //Set displayed value for last run.
+                lastRunBody.text = selectedEmployee.lastRun
+
+                //change last run value with datepicker when displayed last run is clicked.
                 lastRunBody.setOnClickListener {
+                    // for API < 24
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                         val test = DatePickerDialog(this, R.style.calenderPick)
                         test.setOnDateSetListener { dialog, year, month, day ->
@@ -135,15 +150,17 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                         }
                         test.show()
                     } else {
+                        //for api > 24
                         val datePicker = DatePickerDialog(this, this, year, month, day)
                         datePicker.show()
                     }
                 }
 
-
+                //name & date input set to name of selected employee.
                 nameInput.setText(selectedEmployee.name)
                 idInput.setText(selectedEmployee.id.toString())
 
+                //RadioBtn selection set to current employye squad number.
                 when (selectedEmployee.squad) {
                     1 -> {
                         findViewById<RadioButton>(R.id.squadRadioBtn1).isChecked = true
@@ -159,6 +176,7 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                     }
                 }
 
+                //checkboxes set to current employees competence status.
                 checkBoxSquadLeader.isChecked = selectedEmployee.competence.chief
                 checkBoxDriver.isChecked = selectedEmployee.competence.driverTruck
                 checkBoxDriverLadder.isChecked = selectedEmployee.competence.driverLadder
@@ -167,11 +185,10 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
 
 
 
-
-                lastRunBody.text = selectedEmployee.lastRun
-
+                //apply changes to employee with click on applyBtn.
                 applyBtn.text = "Spara Ändringar"
                 applyBtn.setOnClickListener {
+                    //Checks current value for squad radioBtn.
                     val setSquad = when (squadInput.checkedRadioButtonId) {
                         R.id.squadRadioBtn1 -> 1
                         R.id.squadRadioBtn2 -> 2
@@ -179,7 +196,7 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                         R.id.squadRadioBtn4 -> 4
                         else -> 0
                     }
-
+                    //Checks current value for competence check boxes.
                     val listOfEmployeeCompetence: ArrayList<Boolean> = arrayListOf(
                         checkBoxSquadLeader.isChecked,
                         checkBoxDriver.isChecked,
@@ -187,12 +204,12 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                         checkBoxSearchAndRescueLeader.isChecked,
                         checkBoxSearchAndRescue.isChecked
                     )
-
+                    //safety check for inputs.
                     if(isName(nameInput.text.toString()) && !idInput.text.isNullOrEmpty() && hasCompetence(listOfEmployeeCompetence)) {
                         MaterialAlertDialogBuilder(this)
                             .setTitle("Är du säker")
                             .setPositiveButton("Ja") { dialog, which ->
-
+                                //sets new values to employee,gives status message and returns to main screen.
                                 selectedEmployee.name = nameInput.text.toString()
                                 selectedEmployee.id = idInput.text.toString().toInt()
                                 selectedEmployee.squad = setSquad
@@ -218,6 +235,7 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                             }
                             .show()
                     }else {
+                        //if error occurs checks for what error with inputErrorHandler.
                         if (idInput.text.isNullOrEmpty()){
                             inputErrorHandler(
                                 isName(nameInput.text.toString()),
@@ -240,30 +258,31 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
         }
     }
 
+    //Date picker logic for Api > 24. Logic for Api < 24 is found at lastRunBody.setOnClickListener.
+    override fun onDateSet(datePicekr: DatePicker?, year: Int, month: Int, day: Int) {
+        var editedMonth = ""
+        editedMonth = if (month + 1 < 10) {
+            "0${month + 1}"
+        } else {
+            "${month + 1}"
+        }
+        date = "$year-$editedMonth-$day"
+        lastRunBody.text = date
+        Toast.makeText(this, "Senast löpning har uppdaterats", Toast.LENGTH_SHORT)
+            .show()
+    }
 
-
-                override fun onDateSet(datePicekr: DatePicker?, year: Int, month: Int, day: Int) {
-                    var editedMonth = ""
-                    editedMonth = if (month + 1 < 10) {
-                        "0${month + 1}"
-                    } else {
-                        "${month + 1}"
-                    }
-                    date = "$year-$editedMonth-$day"
-                    lastRunBody.text = date
-                    Toast.makeText(this, "Senast löpning har uppdaterats", Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-
+    //Checks if input name is only A-Z and a-z inculding space.
     fun isName(string: String):Boolean{
         return !string.contains("""[^\w\s*]+|[\d]""".toRegex())&&string.isNotEmpty()
     }
 
+    //Checks if min one check box is checked.
     fun hasCompetence(arrayList: ArrayList<Boolean>):Boolean{
         return arrayList.contains(element = true)
     }
 
+    //Checks what is wrong and outputs toast notifying user.
     fun inputErrorHandler(name:Boolean,squad: Int,id: Int,competence: Boolean){
         if(!name){
             Toast.makeText(this, "Fyll i namn!", Toast.LENGTH_SHORT).show()
@@ -276,7 +295,7 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
         }
     }
 
-
+    //Creates a Employee Object.
     private fun createEmployee(id: Int, name: String, squad: Int, competence: Competence): Employee {
             return Employee(id = id, name = name, squad = squad, competence = competence)
         }

@@ -20,6 +20,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class MainListRecyclerAdapter(
+    // receive logic for interface OnItemClickListener
     val  listener: MainListViewHolder.OnItemClickListener
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var items:List<Employee> = listOf()
@@ -30,9 +31,11 @@ class MainListRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        // Logic for multiple holders used on this adapter. Changes needed for onCLick function for multiple use.
         when(holder){
             is MainListViewHolder -> {
                 holder.apply {
+                    //binds Employee and forwards position to holder.
                     bind(items[position],position)
                 }
             }
@@ -42,6 +45,7 @@ class MainListRecyclerAdapter(
     override fun getItemCount(): Int {
         return items.size
     }
+    // sets items (via set or search) and notifies change.
     fun submitList(mainList:List<Employee>){
         items = mainList.sortedBy { it.lastRun }
         notifyDataSetChanged()
@@ -63,19 +67,20 @@ View.OnClickListener{
     lateinit var thisEmployee:Employee
 
     init{
+        // sets click listeners on these views to logic in onClick.
         itemView.setOnClickListener(this)
         trashBtn.setOnClickListener (this)
     }
 
     override fun onClick(view: View?) {
-
+        // performs action depending on type of view that is clicked.
         if (view is ImageView){
             listener.onTrashClick(employeeId)
         }else{
             listener.onItemClick(employeeId)
         }
     }
-
+    // gets employee from items, and updates inflated layout.
     fun bind(employee: Employee,position: Int){
         mainListId.text = employee.id.toString()
         mainListName.text = employee.name
@@ -83,7 +88,7 @@ View.OnClickListener{
         thisEmployee = employee
         empPostition = position
 
-        //set images with if logic looking at competence. -->
+
     }
     interface OnItemClickListener{
         fun onItemClick(id: Int)
