@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import com.example.runner.databinding.FragmentDisplaySquadBinding
+import com.example.runner.databinding.FragmentPickSquadBinding
 import kotlinx.android.synthetic.main.fragment_pick_squad.*
 
 
@@ -23,6 +25,8 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class PickSquad : Fragment() {
+    private var _binding: FragmentPickSquadBinding? = null
+    private val binding get() = _binding!!
 
     private var param1: String? = null
     private var param2: String? = null
@@ -42,28 +46,32 @@ class PickSquad : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val fragment = inflater.inflate(R.layout.fragment_pick_squad, container, false)
+        _binding = FragmentPickSquadBinding.inflate(inflater,container,false)
+        val view = binding.root
         val activity: SendRunnerActivity = activity as SendRunnerActivity
 
         val clickListener = View.OnClickListener { view ->
             // forwards view id to handler in send runner activity.
-            activity.selectedSquadHandler(view.id)
+            when (view){
+                binding.squadOneBtn -> activity.selectedSquadHandler(1)
+                binding.squadTwoBtn -> activity.selectedSquadHandler(2)
+                binding.squadThreeBtn -> activity.selectedSquadHandler(3)
+                binding.squadFourBtn -> activity.selectedSquadHandler(4)
+            }
+
         }
 
-        if (fragment != null) {
-            //Get buttons
-            val btn1 = fragment.findViewById<Button>(R.id.squadOneBtn)
-            val btn2 = fragment.findViewById<Button>(R.id.squadTwoBtn)
-            val btn3 = fragment.findViewById<Button>(R.id.squadThreeBtn)
-            val btn4 = fragment.findViewById<Button>(R.id.squadFourBtn)
-            //Set listeners
-            btn1.setOnClickListener(clickListener)
-            btn2.setOnClickListener(clickListener)
-            btn3.setOnClickListener(clickListener)
-            btn4.setOnClickListener(clickListener)
-        }
-        return fragment
+        binding.squadOneBtn.setOnClickListener(clickListener)
+        binding.squadTwoBtn.setOnClickListener(clickListener)
+        binding.squadThreeBtn.setOnClickListener(clickListener)
+        binding.squadFourBtn.setOnClickListener(clickListener)
+        return view
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 
     companion object {
         /**

@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.runner.databinding.ActivitySendRunnerBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_send_runner.*
 import kotlinx.android.synthetic.main.fragment_display_squad.*
@@ -26,13 +27,13 @@ import java.text.FieldPosition
 class SendRunnerActivity : AppCompatActivity(),SquadViewHolder.RecyclerViewItemClick{
     //init picksquad fragment
     val squadFrag = PickSquad()
-
+    lateinit var binding: ActivitySendRunnerBinding
     val recyclerAdapter = SquadListRecyclerAdapter(this@SendRunnerActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_send_runner)
-        //
+        binding = ActivitySendRunnerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         fragmentHandler(squadFrag)
 
     }
@@ -68,38 +69,21 @@ class SendRunnerActivity : AppCompatActivity(),SquadViewHolder.RecyclerViewItemC
     fun fragmentHandler(fragment:Fragment){
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()
-        val fragmentHolder = manager.findFragmentById(R.id.fragmenHolder)
-        val fragmentHolderId = R.id.fragmenHolder
+        val fragmentHolder = manager.findFragmentById(binding.fragmenHolder.id)
         if(fragmentHolder==null){
-            transaction.add(fragmentHolderId,fragment)
+            transaction.add(binding.fragmenHolder.id,fragment)
             transaction.commit()
         }
         else{
-            transaction.replace(fragmentHolderId,fragment)
+            transaction.replace(binding.fragmenHolder.id,fragment)
             transaction.commit()
         }
 
     }
     //Handles clicked squad in SquadFragment and forward value to DisplaySquadFragment.
     fun selectedSquadHandler(btnId:Int){
-        when(btnId){
-            R.id.squadOneBtn -> {
                 val listFragment = DisplaySquadFragment.newInstance(btnId)
                 fragmentHandler(listFragment)
-            }
-            R.id.squadTwoBtn -> {
-                val listFragment = DisplaySquadFragment.newInstance(btnId)
-                fragmentHandler(listFragment)
-            }
-            R.id.squadThreeBtn -> {
-                val listFragment = DisplaySquadFragment.newInstance(btnId)
-                fragmentHandler(listFragment)
-            }
-            R.id.squadFourBtn -> {
-                val listFragment = DisplaySquadFragment.newInstance(btnId)
-                fragmentHandler(listFragment)
-            }
-        }
     }
 
     //Add extra employee to displayed list .

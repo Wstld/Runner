@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import com.example.runner.databinding.ActivityAddEmployeeBinding
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_add_employee.*
@@ -27,7 +28,7 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
     lateinit var selectedEmployee:Employee
 
     //set date.
-    val cal = GregorianCalendar.getInstance()
+    val cal:Calendar = GregorianCalendar.getInstance()
     var day = cal.get(Calendar.DAY_OF_MONTH)
     var month = cal.get(Calendar.MONTH)
     var year = cal.get(Calendar.YEAR)
@@ -35,28 +36,12 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_employee)
+        val binding = ActivityAddEmployeeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val goToMainScreen = Intent(this, MainActivity::class.java)
         //get employee if any.
         val employeeId = intent.getIntExtra(ID_KEY, DEFAULT_ID)
-
-        //Views in activity
-        val nameInput = findViewById<EditText>(R.id.employeeNameInput)
-        val idInput = findViewById<EditText>(R.id.employeeIdInput)
-
-        val applyBtn = findViewById<Button>(R.id.applyBtn)
-
-        val lastRunHeading = findViewById<TableRow>(R.id.lastRunHeading)
-        val lastRunBody = findViewById<Button>(R.id.lastRunBody)
-
-        val squadInput = findViewById<RadioGroup>(R.id.squadGroupInput)
-
-        val checkBoxSquadLeader = findViewById<CheckBox>(R.id.squadLeaderCheckBox)
-        val checkBoxDriver = findViewById<CheckBox>(R.id.driverCheckBox)
-        val checkBoxDriverLadder = findViewById<CheckBox>(R.id.driverLadderCheckBox)
-        val checkBoxSearchAndRescueLeader = findViewById<CheckBox>(R.id.searchAndRescueLeaderCheckBox)
-        val checkBoxSearchAndRescue = findViewById<CheckBox>(R.id.searchAdnRescueCheckBox)
 
 
 
@@ -65,23 +50,23 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
 
             applyBtn.setOnClickListener {
                 //radioBtn input.
-                val setSquad = when (squadInput.checkedRadioButtonId) {
-                    R.id.squadRadioBtn1 -> 1
-                    R.id.squadRadioBtn2 -> 2
-                    R.id.squadRadioBtn3 -> 3
-                    R.id.squadRadioBtn4 -> 4
+                val setSquad = when (binding.squadGroupInput.checkedRadioButtonId) {
+                    binding.squadRadioBtn1.id -> 1
+                    binding.squadRadioBtn2.id -> 2
+                    binding.squadRadioBtn3.id -> 3
+                    binding.squadRadioBtn4.id -> 4
                     else -> 0
                 }
                 //name and id input.
-                val setName = nameInput.text.toString()?:""
-                val setId = if (idInput.text.isNullOrBlank()){-1}else{idInput.text.toString().toInt()}
+                val setName = binding.employeeNameInput.text.toString()?:""
+                val setId = if (binding.employeeIdInput.text.isNullOrBlank()){-1}else{binding.employeeIdInput.text.toString().toInt()}
 
                 //checkbox values
-                val sqdLeader = checkBoxSquadLeader.isChecked
-                val driver = checkBoxDriver.isChecked
-                val driverLadder = checkBoxDriverLadder.isChecked
-                val sarLeader = checkBoxSearchAndRescueLeader.isChecked
-                val sar = checkBoxSearchAndRescue.isChecked
+                val sqdLeader = binding.squadLeaderCheckBox.isChecked
+                val driver = binding.driverCheckBox.isChecked
+                val driverLadder = binding.driverLadderCheckBox.isChecked
+                val sarLeader = binding.searchAndRescueLeaderCheckBox.isChecked
+                val sar = binding.searchAdnRescueCheckBox.isChecked
                 val competenceValues = arrayListOf<Boolean>(sqdLeader,driver,driverLadder,sarLeader,sar)
 
                 //input check.
@@ -122,14 +107,14 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
             if (selectedEmployee != null) {
 
                 //Display date for last run value.
-                lastRunBody.visibility = View.VISIBLE
-                lastRunHeading.visibility = View.VISIBLE
+                binding.lastRunBody.visibility = View.VISIBLE
+                binding.lastRunHeading.visibility = View.VISIBLE
 
                 //Set displayed value for last run.
-                lastRunBody.text = selectedEmployee.lastRun
+                binding.lastRunBody.text = selectedEmployee.lastRun
 
                 //change last run value with datepicker when displayed last run is clicked.
-                lastRunBody.setOnClickListener {
+                binding.lastRunBody.setOnClickListener {
                     // for API < 24
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                         val test = DatePickerDialog(this, R.style.calenderPick)
@@ -141,7 +126,7 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                                 "${month + 1}"
                             }
                             date = "$year-$editedMonth-$day"
-                            lastRunBody.text = date
+                            binding.lastRunBody.text = date
                             Toast.makeText(
                                 this,
                                 "Senast löpning har uppdaterats",
@@ -157,31 +142,31 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                 }
 
                 //name & date input set to name of selected employee.
-                nameInput.setText(selectedEmployee.name)
-                idInput.setText(selectedEmployee.id.toString())
+                binding.employeeNameInput.setText(selectedEmployee.name)
+                binding.employeeIdInput.setText(selectedEmployee.id.toString())
 
                 //RadioBtn selection set to current employye squad number.
                 when (selectedEmployee.squad) {
                     1 -> {
-                        findViewById<RadioButton>(R.id.squadRadioBtn1).isChecked = true
+                        binding.squadRadioBtn1.isChecked = true
                     }
                     2 -> {
-                        findViewById<RadioButton>(R.id.squadRadioBtn2).isChecked = true
+                        binding.squadRadioBtn2.isChecked = true
                     }
                     3 -> {
-                        findViewById<RadioButton>(R.id.squadRadioBtn3).isChecked = true
+                        binding.squadRadioBtn3.isChecked = true
                     }
                     4 -> {
-                        findViewById<RadioButton>(R.id.squadRadioBtn4).isChecked = true
+                        binding.squadRadioBtn4.isChecked = true
                     }
                 }
 
                 //checkboxes set to current employees competence status.
-                checkBoxSquadLeader.isChecked = selectedEmployee.competence.chief
-                checkBoxDriver.isChecked = selectedEmployee.competence.driverTruck
-                checkBoxDriverLadder.isChecked = selectedEmployee.competence.driverLadder
-                checkBoxSearchAndRescueLeader.isChecked = selectedEmployee.competence.searchAndRescueLeader
-                checkBoxSearchAndRescue.isChecked = selectedEmployee.competence.searchAndRescue
+                binding.squadLeaderCheckBox.isChecked = selectedEmployee.competence.chief
+                binding.driverCheckBox.isChecked = selectedEmployee.competence.driverTruck
+                binding.driverLadderCheckBox.isChecked = selectedEmployee.competence.driverLadder
+                binding.searchAndRescueLeaderCheckBox.isChecked = selectedEmployee.competence.searchAndRescueLeader
+                binding.searchAdnRescueCheckBox.isChecked = selectedEmployee.competence.searchAndRescue
 
 
 
@@ -189,39 +174,40 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                 applyBtn.text = "Spara Ändringar"
                 applyBtn.setOnClickListener {
                     //Checks current value for squad radioBtn.
-                    val setSquad = when (squadInput.checkedRadioButtonId) {
-                        R.id.squadRadioBtn1 -> 1
-                        R.id.squadRadioBtn2 -> 2
-                        R.id.squadRadioBtn3 -> 3
-                        R.id.squadRadioBtn4 -> 4
+                    val setSquad = when (binding.squadGroupInput.checkedRadioButtonId) {
+                        binding.squadRadioBtn1.id -> 1
+                        binding.squadRadioBtn2.id -> 2
+                        binding.squadRadioBtn3.id -> 3
+                        binding.squadRadioBtn4.id -> 4
                         else -> 0
                     }
                     //Checks current value for competence check boxes.
                     val listOfEmployeeCompetence: ArrayList<Boolean> = arrayListOf(
-                        checkBoxSquadLeader.isChecked,
-                        checkBoxDriver.isChecked,
-                        checkBoxDriverLadder.isChecked,
-                        checkBoxSearchAndRescueLeader.isChecked,
-                        checkBoxSearchAndRescue.isChecked
+                        binding.squadLeaderCheckBox.isChecked,
+                        binding.driverCheckBox.isChecked,
+                        binding.driverLadderCheckBox.isChecked,
+                        binding.searchAndRescueLeaderCheckBox.isChecked,
+                        binding.searchAdnRescueCheckBox.isChecked
                     )
                     //safety check for inputs.
-                    if(isName(nameInput.text.toString()) && !idInput.text.isNullOrEmpty() && hasCompetence(listOfEmployeeCompetence)) {
+                    if(isName(binding.employeeNameInput.text.toString()) && !binding.employeeIdInput.text.isNullOrEmpty() && hasCompetence(listOfEmployeeCompetence)) {
                         MaterialAlertDialogBuilder(this)
                             .setTitle("Är du säker")
                             .setPositiveButton("Ja") { dialog, which ->
                                 //sets new values to employee,gives status message and returns to main screen.
-                                selectedEmployee.name = nameInput.text.toString()
-                                selectedEmployee.id = idInput.text.toString().toInt()
+
+                                selectedEmployee.name = binding.employeeNameInput.text.toString()
+                                selectedEmployee.id = binding.employeeIdInput.text.toString().toInt()
                                 selectedEmployee.squad = setSquad
-                                selectedEmployee.lastRun = lastRunBody.text.toString()
-                                selectedEmployee.competence.chief = checkBoxSquadLeader.isChecked
-                                selectedEmployee.competence.driverTruck = checkBoxDriver.isChecked
+                                selectedEmployee.lastRun = binding.lastRunBody.text.toString()
+                                selectedEmployee.competence.chief = binding.squadLeaderCheckBox.isChecked
+                                selectedEmployee.competence.driverTruck = binding.driverCheckBox.isChecked
                                 selectedEmployee.competence.driverLadder =
-                                    checkBoxDriverLadder.isChecked
+                                    binding.driverLadderCheckBox.isChecked
                                 selectedEmployee.competence.searchAndRescueLeader =
-                                    checkBoxSearchAndRescueLeader.isChecked
+                                    binding.searchAndRescueLeaderCheckBox.isChecked
                                 selectedEmployee.competence.searchAndRescue =
-                                    checkBoxSearchAndRescue.isChecked
+                                    binding.searchAdnRescueCheckBox.isChecked
                                 startActivity(goToMainScreen)
                                 Toast.makeText(
                                     this,
@@ -236,18 +222,18 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                             .show()
                     }else {
                         //if error occurs checks for what error with inputErrorHandler.
-                        if (idInput.text.isNullOrEmpty()){
+                        if (binding.employeeIdInput.text.isNullOrEmpty()){
                             inputErrorHandler(
-                                isName(nameInput.text.toString()),
+                                isName(binding.employeeNameInput.text.toString()),
                                 setSquad,
                                 -1,
                                 hasCompetence(listOfEmployeeCompetence)
                             )
                         }else {
                             inputErrorHandler(
-                                isName(nameInput.text.toString()),
+                                isName(binding.employeeNameInput.text.toString()),
                                 setSquad,
-                                idInput.text.toString().toInt(),
+                                binding.employeeIdInput.text.toString().toInt(),
                                 hasCompetence(listOfEmployeeCompetence)
                             )
                         }

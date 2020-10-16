@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -14,13 +15,15 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.runner.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.Serializable
 
 class MainActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         //Create Data (the list)
         val MAINLIST = DataSource
 
@@ -28,16 +31,16 @@ class MainActivity : AppCompatActivity(){
 
         //orientation logic.
         val clickListener = View.OnClickListener { view ->
-            when(view.id){
-                R.id.sendRunnerBtn -> {
+            when(view){
+                binding.sendRunnerBtn -> {
                     val goToSendRunner = Intent(this,SendRunnerActivity::class.java)
                     startActivity(goToSendRunner)
                 }
-                R.id.addEmployeeBtn -> {
+                binding.addEmployeeBtn -> {
                     val goToAddEmployeeActivity = Intent(this,AddEmployeeActivity::class.java)
                     startActivity(goToAddEmployeeActivity)
                 }
-                R.id.showFullListBtn -> {
+                binding.showFullListBtn -> {
                     val goToMainList = Intent(this,ListMain::class.java)
                     startActivity(goToMainList)
                 }
@@ -45,16 +48,10 @@ class MainActivity : AppCompatActivity(){
             }
         }
 
-        //Buttons Defined.
-        val sendRunnerBtn = findViewById<CardView>(R.id.sendRunnerBtn)
-        val addEmployeeBtn = findViewById<Button>(R.id.addEmployeeBtn)
-        val showFullListBtn = findViewById<Button>(R.id.showFullListBtn)
-
-
         //set listener
-        sendRunnerBtn.setOnClickListener(clickListener)
-        addEmployeeBtn.setOnClickListener(clickListener)
-        showFullListBtn.setOnClickListener(clickListener)
+        binding.sendRunnerBtn.setOnClickListener(clickListener)
+        binding.addEmployeeBtn.setOnClickListener(clickListener)
+        binding.showFullListBtn.setOnClickListener(clickListener)
 
 
 

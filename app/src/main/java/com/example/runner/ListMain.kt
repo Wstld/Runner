@@ -8,6 +8,8 @@ import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.runner.databinding.ActivityListMainBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_list_main.*
 import java.text.FieldPosition
@@ -17,12 +19,12 @@ class ListMain : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val data = DataSource.data
-        setContentView(R.layout.activity_list_main)
-        initRecycler(data.sortedBy { it.lastRun })
+        val binding = ActivityListMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        initRecycler(data.sortedBy { it.lastRun },binding.mainListRecycler)
 
         //search input and on change listener.
-        val searchInput:EditText = findViewById(R.id.searchTxt)
-        searchInput.addTextChangedListener(object:TextWatcher{
+        binding.searchTxt.addTextChangedListener(object:TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -47,9 +49,9 @@ class ListMain : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
     }
 
 
-    fun initRecycler(data:List<Employee>){
+    fun initRecycler(data:List<Employee>,rAdapter:RecyclerView){
         // mainListRecycler is located in activity_list_main.xml
-        mainListRecycler.apply {
+        rAdapter.apply {
             layoutManager = LinearLayoutManager(this@ListMain)
             //adds spacing to recyclerview
             val spacing = RecyclerViewSpacing(30)

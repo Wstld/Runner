@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.runner.databinding.FragmentDisplaySquadBinding
 import kotlinx.android.synthetic.main.activity_send_runner.*
 import kotlinx.android.synthetic.main.fragment_display_squad.*
 
@@ -24,7 +25,8 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class DisplaySquadFragment : Fragment(){
-
+    private var _binding: FragmentDisplaySquadBinding? = null
+    private val binding get() = _binding!!
 
 
     private var btn: Int? = null
@@ -49,37 +51,42 @@ class DisplaySquadFragment : Fragment(){
         //access parent activity for this fragment.
         val activity: SendRunnerActivity = activity as SendRunnerActivity
         // Inflate the layout for this fragment
-        val fragment = inflater.inflate(R.layout.fragment_display_squad, container, false)
-        val recyclerView = fragment.findViewById<RecyclerView>(R.id.squadList)
-        val addEmployeeBtn = fragment.findViewById<Button>(R.id.addEmployeeToDisplayedListBtn)
+        _binding = FragmentDisplaySquadBinding.inflate(inflater,container,false)
+        val view = binding.root
 
-        addEmployeeBtn.setOnClickListener { activity.displayMoreEmployees() }
+
+        binding.addEmployeeToDisplayedListBtn.setOnClickListener { activity.displayMoreEmployees() }
 
         //filter logic for recyclerview according to previously clicked btn in PickSquad fragment.
         when(btn) {
-            R.id.squadOneBtn ->{
+            1 ->{
                 val squad1 = DataSource.data.filter { it.squad==1 }.sortedBy { it.lastRun }
-                activity.initRecycler(squad1,recyclerView)
+                activity.initRecycler(squad1,binding.squadList)
             }
 
-            R.id.squadTwoBtn -> {
+            2 -> {
                 val squad2 = DataSource.data.filter { it.squad==2 }.sortedBy { it.lastRun }
-                activity.initRecycler(squad2,recyclerView)
+                activity.initRecycler(squad2,binding.squadList)
             }
 
-            R.id.squadThreeBtn -> {
+            3 -> {
                 val squad3 = DataSource.data.filter { it.squad==3 }.sortedBy { it.lastRun }
-                activity.initRecycler(squad3,recyclerView)
+                activity.initRecycler(squad3,binding.squadList)
             }
 
-            R.id.squadFourBtn -> {
+            4 -> {
                 val squad4 = DataSource.data.filter { it.squad==4 }.sortedBy { it.lastRun }
-                activity.initRecycler(squad4,recyclerView)
+                activity.initRecycler(squad4,binding.squadList)
             }
 
         }
         //display fragment.
-        return fragment
+        return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
