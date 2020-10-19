@@ -1,23 +1,13 @@
 package com.example.runner
 
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
-import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.runner.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
-import java.io.Serializable
 
 class MainActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +31,7 @@ class MainActivity : AppCompatActivity(){
                     startActivity(goToAddEmployeeActivity)
                 }
                 binding.showFullListBtn -> {
-                    val goToMainList = Intent(this,ListMain::class.java)
+                    val goToMainList = Intent(this,MainListActivity::class.java)
                     startActivity(goToMainList)
                 }
 

@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".AddEmployeeActivity"></activity>
         <activity android:name=".SendRunnerActivity" />
-        <activity android:name=".ListMain" />
+        <activity android:name=".MainListActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

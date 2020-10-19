@@ -5,16 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.runner.databinding.ActivityListMainBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.android.synthetic.main.activity_list_main.*
-import java.text.FieldPosition
+
 //Main list activity. Holds functionality for Main list recyclerview.
-class ListMain : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
+class MainListActivity : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
     lateinit var recyclerAdapter:MainListRecyclerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,12 +50,12 @@ class ListMain : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
     fun initRecycler(data:List<Employee>,rAdapter:RecyclerView){
         // mainListRecycler is located in activity_list_main.xml
         rAdapter.apply {
-            layoutManager = LinearLayoutManager(this@ListMain)
+            layoutManager = LinearLayoutManager(this@MainListActivity)
             //adds spacing to recyclerview
             val spacing = RecyclerViewSpacing(30)
             addItemDecoration(spacing)
             //set adapter and click handling through activity.
-            recyclerAdapter = MainListRecyclerAdapter(this@ListMain)
+            recyclerAdapter = MainListRecyclerAdapter(this@MainListActivity)
             recyclerAdapter.submitList(data)
             adapter = recyclerAdapter
 
