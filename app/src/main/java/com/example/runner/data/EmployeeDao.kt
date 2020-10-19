@@ -42,7 +42,5 @@ class EmployeeDao {
         employeeLiveList.value = employeeList
     }
 
-    fun getEmployees(){
-        employeeLiveList as LiveData<List<Employee>>
-    }
+    fun getEmployees() = employeeLiveList as LiveData<List<Employee>>
 }
