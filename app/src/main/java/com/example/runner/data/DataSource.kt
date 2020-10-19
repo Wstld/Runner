@@ -1,7 +1,4 @@
-package com.example.runner
-
-import java.io.Serializable
-import java.util.ArrayList
+package com.example.runner.data
 
 object DataSource {
     val data = createList()

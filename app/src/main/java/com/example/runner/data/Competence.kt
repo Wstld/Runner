@@ -1,4 +1,4 @@
-package com.example.runner
+package com.example.runner.data
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

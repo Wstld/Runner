@@ -1,16 +1,18 @@
-package com.example.runner
+package com.example.runner.util
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.runner.R
+import com.example.runner.data.Employee
 import kotlinx.android.synthetic.main.employee_list_item.view.*
 
 // --------------------- Basically same as MainListRecyclerAdapter ---------------------------------------
 
 class SquadListRecyclerAdapter(
-    val listener:SquadViewHolder.RecyclerViewItemClick
+    val listener: SquadViewHolder.RecyclerViewItemClick
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var list = mutableListOf<Employee>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -50,7 +52,7 @@ View.OnClickListener{
     }
     val idView:TextView = itemView.main_list_id
     val nameView:TextView = itemView.main_list_name
-    fun bind(employee: Employee,position: Int){
+    fun bind(employee: Employee, position: Int){
         idView.text = employee.id.toString()
         nameView.text = employee.name
         employeeItem = employee
@@ -62,7 +64,7 @@ View.OnClickListener{
     }
 
     interface RecyclerViewItemClick{
-        fun onItemClick(employee: Employee,position: Int){}
+        fun onItemClick(employee: Employee, position: Int){}
     }
 
 }

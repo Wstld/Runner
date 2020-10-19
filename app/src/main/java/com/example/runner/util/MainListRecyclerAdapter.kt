@@ -1,23 +1,14 @@
-package com.example.runner
+package com.example.runner.util
 
-import android.app.Activity
-import android.app.AlertDialog
-import android.app.Application
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewParent
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.example.runner.R
+import com.example.runner.data.Employee
 import kotlinx.android.synthetic.main.employee_list_item.view.*
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
-import java.util.*
-import kotlin.collections.ArrayList
 
 class MainListRecyclerAdapter(
     // receive logic for interface OnItemClickListener
@@ -64,7 +55,7 @@ View.OnClickListener{
     var empPostition:Int = 0
     val mainListId:TextView = itemView.main_list_id
     val mainListName:TextView = itemView.main_list_name
-    lateinit var thisEmployee:Employee
+    lateinit var thisEmployee: Employee
 
     init{
         // sets click listeners on these views to logic in onClick.
@@ -81,7 +72,7 @@ View.OnClickListener{
         }
     }
     // gets employee from items, and updates inflated layout.
-    fun bind(employee: Employee,position: Int){
+    fun bind(employee: Employee, position: Int){
         mainListId.text = employee.id.toString()
         mainListName.text = employee.name
         employeeId = employee.id

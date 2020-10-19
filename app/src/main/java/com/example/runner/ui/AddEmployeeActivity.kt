@@ -1,21 +1,18 @@
-package com.example.runner
+package com.example.runner.ui
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.CalendarContract
-import android.provider.ContactsContract
 import android.view.View
 import android.widget.*
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
+import com.example.runner.data.Competence
+import com.example.runner.data.DataSource
+import com.example.runner.data.Employee
+import com.example.runner.R
 import com.example.runner.databinding.ActivityAddEmployeeBinding
-import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_add_employee.*
-import java.time.format.DateTimeFormatterBuilder
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -25,7 +22,7 @@ const val DEFAULT_ID = -1
 
 class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener {
 
-    lateinit var selectedEmployee:Employee
+    lateinit var selectedEmployee: Employee
 
     //set date.
     val cal:Calendar = GregorianCalendar.getInstance()

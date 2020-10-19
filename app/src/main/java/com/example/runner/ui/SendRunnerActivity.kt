@@ -1,30 +1,21 @@
-package com.example.runner
+package com.example.runner.ui
 
-import android.app.Dialog
 import android.content.Intent
-import android.content.res.Resources
-import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.media.RatingCompat
-import android.view.View
-import android.widget.Button
-import android.widget.FrameLayout
-import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.annotation.StyleRes
-import androidx.fragment.app.FragmentContainer
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.runner.util.RecyclerViewSpacing
+import com.example.runner.util.SquadListRecyclerAdapter
+import com.example.runner.util.SquadViewHolder
+import com.example.runner.data.DataSource
+import com.example.runner.data.Employee
 import com.example.runner.databinding.ActivitySendRunnerBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.android.synthetic.main.activity_send_runner.*
-import kotlinx.android.synthetic.main.fragment_display_squad.*
-import java.text.FieldPosition
 
-class SendRunnerActivity : AppCompatActivity(),SquadViewHolder.RecyclerViewItemClick{
+class SendRunnerActivity : AppCompatActivity(), SquadViewHolder.RecyclerViewItemClick {
     //init picksquad fragment
     val squadFrag = PickSquad()
     lateinit var binding: ActivitySendRunnerBinding
@@ -39,8 +30,8 @@ class SendRunnerActivity : AppCompatActivity(),SquadViewHolder.RecyclerViewItemC
     }
 
     //Send runner functionality, updates employee.lastrun
-    override fun onItemClick(employee: Employee,position: Int) {
-        val goToMainActivity = Intent(this,MainActivity::class.java)
+    override fun onItemClick(employee: Employee, position: Int) {
+        val goToMainActivity = Intent(this, MainActivity::class.java)
         MaterialAlertDialogBuilder(this)
             .setTitle("Skicka Löpare")
             .setMessage("Är du säker på att du vill skicka ${employee.name}")
@@ -55,7 +46,7 @@ class SendRunnerActivity : AppCompatActivity(),SquadViewHolder.RecyclerViewItemC
             .show()
     }
     //recyclerview for DisplaySquadFragment.
-    fun initRecycler(data:List<Employee>,recyclerView: RecyclerView){
+    fun initRecycler(data:List<Employee>, recyclerView: RecyclerView){
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@SendRunnerActivity)
             val spacing = RecyclerViewSpacing(30)

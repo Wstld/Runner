@@ -1,4 +1,4 @@
-package com.example.runner
+package com.example.runner.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,12 +8,17 @@ import android.text.TextWatcher
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.runner.data.DataSource
+import com.example.runner.data.Employee
 import com.example.runner.databinding.ActivityListMainBinding
+import com.example.runner.util.MainListRecyclerAdapter
+import com.example.runner.util.MainListViewHolder
+import com.example.runner.util.RecyclerViewSpacing
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 //Main list activity. Holds functionality for Main list recyclerview.
-class MainListActivity : AppCompatActivity(),MainListViewHolder.OnItemClickListener {
-    lateinit var recyclerAdapter:MainListRecyclerAdapter
+class MainListActivity : AppCompatActivity(), MainListViewHolder.OnItemClickListener {
+    lateinit var recyclerAdapter: MainListRecyclerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val data = DataSource.data
@@ -46,7 +51,7 @@ class MainListActivity : AppCompatActivity(),MainListViewHolder.OnItemClickListe
     }
 
 
-    fun initRecycler(data:List<Employee>,rAdapter:RecyclerView){
+    fun initRecycler(data:List<Employee>, rAdapter:RecyclerView){
         // mainListRecycler is located in activity_list_main.xml
         rAdapter.apply {
             layoutManager = LinearLayoutManager(this@MainListActivity)
@@ -63,14 +68,14 @@ class MainListActivity : AppCompatActivity(),MainListViewHolder.OnItemClickListe
     //click handling interfaced through mainlist viewholder, employees selected through Id.
     //Item clicked opens change screen for employee.
     override fun onItemClick(id:Int) {
-        val showEmployee = Intent(this,AddEmployeeActivity::class.java)
+        val showEmployee = Intent(this, AddEmployeeActivity::class.java)
         showEmployee.putExtra(ID_KEY,id)
         startActivity(showEmployee)
     }
 
     //trashcan click removes selected employee.
     override fun onTrashClick(id: Int) {
-        val employee:Employee? = DataSource.data.find { it.id == id }
+        val employee: Employee? = DataSource.data.find { it.id == id }
         if(employee!= null ){
             val name = employee.name
         MaterialAlertDialogBuilder(this)

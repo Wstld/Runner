@@ -1,4 +1,4 @@
-package com.example.runner
+package com.example.runner.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.example.runner.data.DataSource
+import com.example.runner.R
 import com.example.runner.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(){
@@ -23,15 +25,15 @@ class MainActivity : AppCompatActivity(){
         val clickListener = View.OnClickListener { view ->
             when(view){
                 binding.sendRunnerBtn -> {
-                    val goToSendRunner = Intent(this,SendRunnerActivity::class.java)
+                    val goToSendRunner = Intent(this, SendRunnerActivity::class.java)
                     startActivity(goToSendRunner)
                 }
                 binding.addEmployeeBtn -> {
-                    val goToAddEmployeeActivity = Intent(this,AddEmployeeActivity::class.java)
+                    val goToAddEmployeeActivity = Intent(this, AddEmployeeActivity::class.java)
                     startActivity(goToAddEmployeeActivity)
                 }
                 binding.showFullListBtn -> {
-                    val goToMainList = Intent(this,MainListActivity::class.java)
+                    val goToMainList = Intent(this, MainListActivity::class.java)
                     startActivity(goToMainList)
                 }
 

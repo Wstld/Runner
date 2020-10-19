@@ -1,14 +1,10 @@
-package com.example.runner
+package com.example.runner.data
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
 import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 
-open class Employee(var id:Int, var name:String, var squad:Int, var lastRun:String ="", var competence:Competence){
+open class Employee(var id:Int, var name:String, var squad:Int, var lastRun:String ="", var competence: Competence){
     init {
         //Sets date and time of init as Lastrun.
         lastRun.ifEmpty { lastRun = getDate() }

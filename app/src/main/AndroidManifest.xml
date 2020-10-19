@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddEmployeeActivity"></activity>
-        <activity android:name=".SendRunnerActivity" />
-        <activity android:name=".MainListActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.AddEmployeeActivity"></activity>
+        <activity android:name=".ui.SendRunnerActivity" />
+        <activity android:name=".ui.MainListActivity" />
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

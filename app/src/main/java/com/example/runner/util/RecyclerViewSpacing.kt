@@ -1,4 +1,4 @@
-package com.example.runner
+package com.example.runner.util
 
 import android.graphics.Rect
 import android.view.View
