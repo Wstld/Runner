@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.runner.data.DataSource
@@ -19,6 +20,7 @@ import com.example.runner.ui.MainListActivity
 import com.example.runner.util.MainListRecyclerAdapter
 import com.example.runner.util.MainListViewHolder
 import com.example.runner.util.RecyclerViewSpacing
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MainListViewModel(private val employeeRepository: EmployeeRepository):ViewModel(),MainListViewHolder.OnItemClickListener
 {
@@ -36,15 +38,24 @@ class MainListViewModel(private val employeeRepository: EmployeeRepository):View
 
     //On clicked trashcan in recycler view.
     override fun onTrashClick(employee: Employee, view: View) {
-    employeeRepository.removeEmployee(employee)
+
+        MaterialAlertDialogBuilder(view.context)
+            .setTitle("Vill du tabort ${employee.name}")
+            .setPositiveButton("Ja"){dialog,which ->
+                val employeeName = employee.name
+                employeeRepository.removeEmployee(employee)
+                Toast.makeText(view.context, "$employeeName har tagits bort", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("Nej"){dialog,which->
+                dialog.cancel()
+            }
+            .show()
 
     }
 
     //search/filter logic for search input.
     fun filter(str:String){
-        val filteredList = mutableListOf<Employee>()
-        DataSource.data.forEach { if (it.id.toString().toUpperCase().contains(str.toUpperCase())||it.name.toUpperCase().contains(str.toUpperCase())){filteredList.add(it)} }
-        recyclerAdapter.filterListOnSearch(filteredList.toList())
+        employeeRepository.filterList(str)
     }
 
 

@@ -9,8 +9,6 @@ open class Employee(var id:Int, var name:String, var squad:Int, var lastRun:Stri
         //Sets date and time of init as Lastrun.
         lastRun.ifEmpty { lastRun = getDate() }
     }
-    fun addToList(){}
-    fun removeFromList(){}
     fun getDate():String{
         // gets current time.
         val date = GregorianCalendar.getInstance()

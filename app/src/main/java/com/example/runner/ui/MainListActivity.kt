@@ -32,10 +32,12 @@ class MainListActivity : AppCompatActivity() {
         binding = ActivityListMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //creates viewmodel from factory via injectorutil.
         val factory = InjectorUtil.provideMainListViewModelFactory()
         viewModel = ViewModelProvider(this,factory)
             .get(MainListViewModel::class.java)
 
+      //init UI components, and observe changes in the "Fake" Database.
       intiUi(binding,binding.mainListRecycler)
 
         //search input and on change listener.
@@ -47,20 +49,17 @@ class MainListActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(str: Editable?) {
-               // filter(str.toString())
+               viewModel.filter(str.toString())
             }
         })
-
-
     }
-
     fun intiUi (binding: ActivityListMainBinding,rAdapter:RecyclerView){
         rAdapter.apply {
             layoutManager = LinearLayoutManager(context)
             //adds spacing to recyclerview
             val spacing = RecyclerViewSpacing(30)
             addItemDecoration(spacing)
-            //set adapter and click handling through activity.
+
             recyclerAdapter = viewModel.getMainListRecyclerAdapter()
             adapter = recyclerAdapter
 
@@ -71,31 +70,6 @@ class MainListActivity : AppCompatActivity() {
     }
 
 
-    //click handling interfaced through mainlist viewholder, employees selected through Id.
-    //Item clicked opens change screen for employee.
-/*    override fun onItemClick(id:Int) {
-        val showEmployee = Intent(this, AddEmployeeActivity::class.java)
-        showEmployee.putExtra(ID_KEY,id)
-        startActivity(showEmployee)
-    }*/
-
-    //trashcan click removes selected employee.
-    /*override fun onTrashClick(id: Int) {
-        val employee: Employee? = DataSource.data.find { it.id == id }
-        if(employee!= null ){
-            val name = employee.name
-        MaterialAlertDialogBuilder(this)
-            .setTitle("Vill du tabort $name")
-            .setPositiveButton("Ja"){dialog,which ->
-                DataSource.data.remove(employee)
-                recyclerAdapter.submitList(DataSource.data)
-                Toast.makeText(this, "$name har tagits bort", Toast.LENGTH_SHORT).show()
-            }
-            .setNegativeButton("Nej"){dialog,which->
-                dialog.cancel()
-            }
-            .show()
-    }
-    }*/
 }
+
 

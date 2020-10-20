@@ -46,4 +46,11 @@ class EmployeeDao {
     }
 
     fun getEmployees() = employeeLiveList as LiveData<List<Employee>>
+
+    fun getFilteredEmployees(string: String){
+        val filteredList = mutableListOf<Employee>()
+        employeeList.forEach { if (it.id.toString().toUpperCase().contains(string.toUpperCase())||it.name.toUpperCase().contains(string.toUpperCase())){filteredList.add(it)} }
+        employeeLiveList.value = filteredList
+    }
 }
+

@@ -60,11 +60,8 @@ class MainListRecyclerAdapter(
 
 class MainListViewHolder(private val binding:EmployeeListItemWRemoveBinding, val listener: OnItemClickListener): RecyclerView.ViewHolder(binding.root),
 View.OnClickListener{
-    val trashBtn:ImageView = binding.trashBtn
     var employeeId: Int = 0
     var empPostition:Int = 0
-    val mainListId:TextView = binding.mainListId
-    val mainListName:TextView = binding.mainListName
     lateinit var thisEmployee: Employee
 
     init{
