@@ -1,5 +1,7 @@
 package com.example.runner.util
 
+import android.database.DatabaseUtils
+import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.runner.R
 import com.example.runner.data.Employee
+import com.example.runner.databinding.EmployeeListItemWRemoveBinding
 import kotlinx.android.synthetic.main.employee_list_item.view.*
 
 class MainListRecyclerAdapter(
@@ -16,8 +19,15 @@ class MainListRecyclerAdapter(
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var items:List<Employee> = listOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+
         return MainListViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.employee_list_item_w_remove,parent,false,),listener
+            EmployeeListItemWRemoveBinding.inflate(
+                inflater,
+                parent,
+                false
+            ),
+            listener
         )
     }
 
@@ -48,19 +58,19 @@ class MainListRecyclerAdapter(
 
 }
 
-class MainListViewHolder(itemView: View,val listener: OnItemClickListener): RecyclerView.ViewHolder(itemView),
+class MainListViewHolder(private val binding:EmployeeListItemWRemoveBinding, val listener: OnItemClickListener): RecyclerView.ViewHolder(binding.root),
 View.OnClickListener{
-    val trashBtn:ImageView = itemView.findViewById<ImageView>(R.id.trashBtn)
+    val trashBtn:ImageView = binding.trashBtn
     var employeeId: Int = 0
     var empPostition:Int = 0
-    val mainListId:TextView = itemView.main_list_id
-    val mainListName:TextView = itemView.main_list_name
+    val mainListId:TextView = binding.mainListId
+    val mainListName:TextView = binding.mainListName
     lateinit var thisEmployee: Employee
 
     init{
         // sets click listeners on these views to logic in onClick.
-        itemView.setOnClickListener(this)
-        trashBtn.setOnClickListener (this)
+        binding.recyclerViewItem.setOnClickListener(this)
+        binding.trashBtn.setOnClickListener (this)
     }
 
     override fun onClick(view: View?) {
@@ -73,10 +83,9 @@ View.OnClickListener{
     }
     // gets employee from items, and updates inflated layout.
     fun bind(employee: Employee, position: Int){
-        mainListId.text = employee.id.toString()
-        mainListName.text = employee.name
+        binding.mainListId.text = employee.id.toString()
+        binding.mainListName.text = employee.name
         employeeId = employee.id
-        thisEmployee = employee
         empPostition = position
 
 

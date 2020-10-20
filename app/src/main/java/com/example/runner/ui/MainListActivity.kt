@@ -24,15 +24,17 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 //Main list activity. Holds functionality for Main list recyclerview.
 class MainListActivity : AppCompatActivity(), MainListViewHolder.OnItemClickListener {
-    val factory = InjectorUtil.provideMainListViewModelFactory()
-    val viewModel = ViewModelProvider(this,factory)
-        .get(MainListViewModel::class.java)
-    val binding = ActivityListMainBinding.inflate(layoutInflater)
+    lateinit var viewModel:MainListViewModel
+    private lateinit var binding:ActivityListMainBinding
     lateinit var recyclerAdapter: MainListRecyclerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        binding = ActivityListMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val factory = InjectorUtil.provideMainListViewModelFactory()
+        viewModel = ViewModelProvider(this,factory)
+            .get(MainListViewModel::class.java)
 
       intiUi(binding,this,this)
 
