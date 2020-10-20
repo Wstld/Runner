@@ -75,10 +75,12 @@ View.OnClickListener{
 
     override fun onClick(view: View?) {
         // performs action depending on type of view that is clicked.
-        if (view is ImageView){
-            listener.onTrashClick(employeeId)
-        }else{
-            listener.onItemClick(employeeId)
+        if(view!=null) {
+            when (view) {
+                is ImageView -> listener.onTrashClick(thisEmployee, view)
+
+                else -> listener.onItemClick(employeeId, view)
+            }
         }
     }
     // gets employee from items, and updates inflated layout.
@@ -87,12 +89,13 @@ View.OnClickListener{
         binding.mainListName.text = employee.name
         employeeId = employee.id
         empPostition = position
+        thisEmployee = employee
 
 
     }
     interface OnItemClickListener{
-        fun onItemClick(id: Int)
-        fun onTrashClick(id: Int)
+        fun onItemClick(id: Int,view: View)
+        fun onTrashClick(employee: Employee,view: View)
     }
 
 }

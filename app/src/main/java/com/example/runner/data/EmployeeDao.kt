@@ -1,5 +1,6 @@
 package com.example.runner.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
@@ -37,9 +38,11 @@ class EmployeeDao {
             }
         }
     }
-    fun removeEmployee(id:Int){
-        employeeList.find { it.id == id }!!.removeFromList()
-        employeeLiveList.value = employeeList
+    fun removeEmployee(employee: Employee){
+
+            employeeList.remove(employee)
+            employeeLiveList.value = employeeList
+
     }
 
     fun getEmployees() = employeeLiveList as LiveData<List<Employee>>

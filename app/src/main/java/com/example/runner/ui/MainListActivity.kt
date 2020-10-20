@@ -23,7 +23,7 @@ import com.example.runner.util.RecyclerViewSpacing
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 //Main list activity. Holds functionality for Main list recyclerview.
-class MainListActivity : AppCompatActivity(), MainListViewHolder.OnItemClickListener {
+class MainListActivity : AppCompatActivity() {
     lateinit var viewModel:MainListViewModel
     private lateinit var binding:ActivityListMainBinding
     lateinit var recyclerAdapter: MainListRecyclerAdapter
@@ -36,7 +36,7 @@ class MainListActivity : AppCompatActivity(), MainListViewHolder.OnItemClickList
         viewModel = ViewModelProvider(this,factory)
             .get(MainListViewModel::class.java)
 
-      intiUi(binding,this,this)
+      intiUi(binding,binding.mainListRecycler)
 
         //search input and on change listener.
         binding.searchTxt.addTextChangedListener(object:TextWatcher{
@@ -47,35 +47,40 @@ class MainListActivity : AppCompatActivity(), MainListViewHolder.OnItemClickList
             }
 
             override fun afterTextChanged(str: Editable?) {
-                filter(str.toString())
+               // filter(str.toString())
             }
         })
 
+
     }
 
-    fun intiUi (binding: ActivityListMainBinding,context: Context,listner:MainListViewHolder.OnItemClickListener){
+    fun intiUi (binding: ActivityListMainBinding,rAdapter:RecyclerView){
+        rAdapter.apply {
+            layoutManager = LinearLayoutManager(context)
+            //adds spacing to recyclerview
+            val spacing = RecyclerViewSpacing(30)
+            addItemDecoration(spacing)
+            //set adapter and click handling through activity.
+            recyclerAdapter = viewModel.getMainListRecyclerAdapter()
+            adapter = recyclerAdapter
+
+        }
         viewModel.getEmployees().observe(this, Observer { employeeList ->
-            viewModel.initRecycler(employeeList.sortedBy { it.lastRun },binding.mainListRecycler,context,listner)
+            recyclerAdapter.submitList(employeeList)
         })
     }
 
-    //search/filter logic for search input.
-    fun filter(str:String){
-        val filteredList = mutableListOf<Employee>()
-        DataSource.data.forEach { if (it.id.toString().toUpperCase().contains(str.toUpperCase())||it.name.toUpperCase().contains(str.toUpperCase())){filteredList.add(it)} }
-        recyclerAdapter.filterListOnSearch(filteredList.toList())
-    }
 
     //click handling interfaced through mainlist viewholder, employees selected through Id.
     //Item clicked opens change screen for employee.
-    override fun onItemClick(id:Int) {
+/*    override fun onItemClick(id:Int) {
         val showEmployee = Intent(this, AddEmployeeActivity::class.java)
         showEmployee.putExtra(ID_KEY,id)
         startActivity(showEmployee)
-    }
+    }*/
 
     //trashcan click removes selected employee.
-    override fun onTrashClick(id: Int) {
+    /*override fun onTrashClick(id: Int) {
         val employee: Employee? = DataSource.data.find { it.id == id }
         if(employee!= null ){
             val name = employee.name
@@ -91,6 +96,6 @@ class MainListActivity : AppCompatActivity(), MainListViewHolder.OnItemClickList
             }
             .show()
     }
-    }
+    }*/
 }
 

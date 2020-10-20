@@ -6,6 +6,7 @@ class EmployeeRepository private constructor(private val employeeDao: EmployeeDa
     }
 
     fun getEmployees() = employeeDao.getEmployees()
+    fun removeEmployee(employee: Employee) = employeeDao.removeEmployee(employee)
 
     companion object{
         @Volatile private var instance:EmployeeRepository? = null
