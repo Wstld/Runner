@@ -24,11 +24,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MainListViewModel(private val employeeRepository: EmployeeRepository):ViewModel(),MainListViewHolder.OnItemClickListener
 {
-    lateinit var recyclerAdapter: MainListRecyclerAdapter
-    fun addEmployee(employee: Employee) = employeeRepository.addEmployee(employee)
     fun getEmployees() = employeeRepository.getEmployees()
 
-    fun getMainListRecyclerAdapter()= MainListRecyclerAdapter(this)
+    fun getMainListRecyclerAdapter() = MainListRecyclerAdapter(this)
 //On clicked Item in recycler view.
     override fun onItemClick(id: Int,view:View) {
     val showEmployee = Intent(view.context, AddEmployeeActivity::class.java)

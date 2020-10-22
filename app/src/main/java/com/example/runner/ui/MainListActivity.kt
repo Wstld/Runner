@@ -38,7 +38,7 @@ class MainListActivity : AppCompatActivity() {
             .get(MainListViewModel::class.java)
 
       //init UI components, and observe changes in the "Fake" Database.
-      intiUi(binding,binding.mainListRecycler)
+      intiUi(binding)
 
         //search input and on change listener.
         binding.searchTxt.addTextChangedListener(object:TextWatcher{
@@ -53,8 +53,8 @@ class MainListActivity : AppCompatActivity() {
             }
         })
     }
-    fun intiUi (binding: ActivityListMainBinding,rAdapter:RecyclerView){
-        rAdapter.apply {
+    fun intiUi (binding: ActivityListMainBinding){
+        binding.mainListRecycler.apply {
             layoutManager = LinearLayoutManager(context)
             //adds spacing to recyclerview
             val spacing = RecyclerViewSpacing(30)
