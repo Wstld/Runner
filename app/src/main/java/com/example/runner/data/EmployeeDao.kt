@@ -9,6 +9,7 @@ class EmployeeDao {
     private val employeeLiveList = MutableLiveData<List<Employee>>()
 
     init {
+        DataSource.data.forEach { employeeList.add(it) }
         employeeLiveList.value = employeeList
     }
     fun addEmployee(employee: Employee){

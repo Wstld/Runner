@@ -8,7 +8,7 @@ class DataBase private constructor(){
         fun getInstance() = instance?: synchronized(this){
             instance ?: DataBase().also { dataBase ->
                 instance = dataBase
-                DataSource.data.forEach { instance!!.employeeDao.addEmployee(it) }
+
             }
         }
     }
