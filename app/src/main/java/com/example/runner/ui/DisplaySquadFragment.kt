@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.runner.data.DataSource
 import com.example.runner.databinding.FragmentDisplaySquadBinding
 
 
@@ -52,7 +51,7 @@ class DisplaySquadFragment : Fragment(){
         binding.addEmployeeToDisplayedListBtn.setOnClickListener { activity.displayMoreEmployees() }
 
         //filter logic for recyclerview according to previously clicked btn in PickSquad fragment.
-        when(btn) {
+/*        when(btn) {
             1 ->{
                 val squad1 = DataSource.data.filter { it.squad==1 }.sortedBy { it.lastRun }
                 activity.initRecycler(squad1,binding.squadList)
@@ -73,7 +72,7 @@ class DisplaySquadFragment : Fragment(){
                 activity.initRecycler(squad4,binding.squadList)
             }
 
-        }
+        }*/
         //display fragment.
         return view
     }

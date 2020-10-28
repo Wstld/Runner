@@ -1,6 +1,5 @@
 package com.example.runner.util
 
-import android.database.DatabaseUtils
 import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.runner.R
-import com.example.runner.data.Employee
+import com.example.runner.data.dto.Employee
 import com.example.runner.databinding.EmployeeListItemWRemoveBinding
 import kotlinx.android.synthetic.main.employee_list_item.view.*
 import kotlinx.android.synthetic.main.employee_list_item.view.main_list_id

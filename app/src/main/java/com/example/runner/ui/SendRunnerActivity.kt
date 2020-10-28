@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.runner.util.RecyclerViewSpacing
 import com.example.runner.util.SquadListRecyclerAdapter
 import com.example.runner.util.SquadViewHolder
-import com.example.runner.data.DataSource
-import com.example.runner.data.Employee
+import com.example.runner.data.dto.Employee
 import com.example.runner.databinding.ActivitySendRunnerBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -39,7 +38,7 @@ class SendRunnerActivity : AppCompatActivity(), SquadViewHolder.RecyclerViewItem
                 dialog.cancel()
             }
             .setPositiveButton("Ja"){dialog,which ->
-                employee.setDate(employee.getDate())
+                //employee.setDate(employee.getDate())
                 startActivity(goToMainActivity)
                 Toast.makeText(this, "${employee.name} har skickats", Toast.LENGTH_SHORT).show()
             }
@@ -81,7 +80,7 @@ class SendRunnerActivity : AppCompatActivity(), SquadViewHolder.RecyclerViewItem
     fun displayMoreEmployees(){
         // list of employee id's.
         val listOfEmployees = mutableListOf<String>()
-        DataSource.data.forEach{listOfEmployees.add(it.id.toString())}
+        //DataSource.data.forEach{listOfEmployees.add(it.id.toString())}
 
         //Default list of False values according to amount of employees.
         val itemsCheckd = mutableListOf<Boolean>()
@@ -103,7 +102,7 @@ class SendRunnerActivity : AppCompatActivity(), SquadViewHolder.RecyclerViewItem
                 //adds id of checked employees to list.
                 itemsCheckd.forEachIndexed { index, b -> if (b){list.add(listOfEmployees[index].toInt())} }
                 //finds these employees by id and adds to adapter and notifies data change
-                list.forEach { itemsCheckd -> DataSource.data.forEach{  if (it.id == itemsCheckd){recyclerAdapter.addEmployeeToList(it)} } }
+                //list.forEach { itemsCheckd -> DataSource.data.forEach{  if (it.id == itemsCheckd){recyclerAdapter.addEmployeeToList(it)} } }
                 recyclerAdapter.notifyDataSetChanged()
                 dialog.cancel()
 

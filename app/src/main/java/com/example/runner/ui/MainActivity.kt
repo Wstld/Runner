@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import com.example.runner.data.DataSource
 import com.example.runner.R
 import com.example.runner.databinding.ActivityMainBinding
 
@@ -17,7 +16,7 @@ class MainActivity : AppCompatActivity(){
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         //Create Data (the list)
-        val MAINLIST = DataSource
+        //val MAINLIST = DataSource
 
 
 

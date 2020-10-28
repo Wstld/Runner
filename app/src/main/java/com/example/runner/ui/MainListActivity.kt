@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -46,7 +47,7 @@ class MainListActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(str: Editable?) {
-               viewModel.filter(str.toString())
+              // viewModel.filter(str.toString())
             }
         })
 
@@ -59,6 +60,7 @@ class MainListActivity : AppCompatActivity() {
 
 
     fun intiUi (binding: ActivityListMainBinding){
+        val list = viewModel.getEmployees(this)
         binding.mainListRecycler.apply {
             layoutManager = LinearLayoutManager(context)
             //adds spacing to recyclerview
@@ -68,17 +70,16 @@ class MainListActivity : AppCompatActivity() {
             recyclerAdapter.event.observe(
                 this@MainListActivity,
                 Observer {
-                    viewModel.handleEvent(it)
+                    viewModel.handleEvent(it,this.context)
                 }
             )
             adapter = recyclerAdapter
-
+            recyclerAdapter.submitList(list.value)
 
         }
-        val oldlist = recyclerAdapter.currentList
 
-        viewModel.getEmployees().observe(this@MainListActivity, Observer {
-            recyclerAdapter.submitList(viewModel.getEmployees().value!!.toList())
+        list.observe(this@MainListActivity, Observer {
+            recyclerAdapter.submitList(list.value!!.toList())
 
 
         })

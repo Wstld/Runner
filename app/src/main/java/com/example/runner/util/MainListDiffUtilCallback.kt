@@ -1,7 +1,7 @@
 package com.example.runner.util
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.runner.data.Employee
+import com.example.runner.data.dto.Employee
 
 class MainListDiffUtilCallback():DiffUtil.ItemCallback<Employee>() {
     override fun areItemsTheSame(oldItem: Employee, newItem: Employee): Boolean {

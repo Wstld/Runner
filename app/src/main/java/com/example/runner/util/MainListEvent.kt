@@ -1,7 +1,7 @@
 package com.example.runner.util
 
+import android.content.Context
 import android.view.View
-import com.example.runner.data.Employee
 
 sealed class MainListEvent<out T> {
     class ListItemClicked<out Int>(val id:Int,val view:View):MainListEvent<Int>()

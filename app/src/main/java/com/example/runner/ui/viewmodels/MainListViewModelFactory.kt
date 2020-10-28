@@ -2,7 +2,6 @@ package com.example.runner.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.runner.data.Employee
 import com.example.runner.data.EmployeeRepository
 
 class MainListViewModelFactory(private val employeeRepository: EmployeeRepository):ViewModelProvider.NewInstanceFactory(){

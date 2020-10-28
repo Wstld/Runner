@@ -6,9 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import com.example.runner.data.Competence
-import com.example.runner.data.DataSource
-import com.example.runner.data.Employee
+import com.example.runner.data.dto.Competence
+import com.example.runner.data.dto.Employee
 import com.example.runner.R
 import com.example.runner.databinding.ActivityAddEmployeeBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -72,14 +71,14 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                     .setTitle("Vill du lägga till $setName?")
                     .setPositiveButton("Ja")
                     { dialog, which ->
-                            DataSource.data.add(
+                            /*DataSource.data.add(
                                 createEmployee(
                                     setId,
                                     setName,
                                     setSquad,
                                     Competence(sqdLeader, driver, driverLadder, sarLeader, sar)
                                 )
-                            )
+                            )*/
                             startActivity(goToMainScreen)
                             Toast.makeText(this, "$setName har laggts till", Toast.LENGTH_SHORT)
                                 .show()
@@ -98,7 +97,7 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
         //if fragment is opened to edit existing employee
         else {
             //find employee in datasource based on Id.
-            val selectedEmployee = DataSource.data.find { it.id == employeeId }
+           // val selectedEmployee = DataSource.data.find { it.id == employeeId }
 
             //null safety.
             if (selectedEmployee != null) {
@@ -159,11 +158,11 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                 }
 
                 //checkboxes set to current employees competence status.
-                binding.squadLeaderCheckBox.isChecked = selectedEmployee.competence.chief
+             /*   binding.squadLeaderCheckBox.isChecked = selectedEmployee.competence.chief
                 binding.driverCheckBox.isChecked = selectedEmployee.competence.driverTruck
                 binding.driverLadderCheckBox.isChecked = selectedEmployee.competence.driverLadder
                 binding.searchAndRescueLeaderCheckBox.isChecked = selectedEmployee.competence.searchAndRescueLeader
-                binding.searchAdnRescueCheckBox.isChecked = selectedEmployee.competence.searchAndRescue
+                binding.searchAdnRescueCheckBox.isChecked = selectedEmployee.competence.searchAndRescue*/
 
 
 
@@ -193,7 +192,7 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                             .setPositiveButton("Ja") { dialog, which ->
                                 //sets new values to employee,gives status message and returns to main screen.
 
-                                selectedEmployee.name = binding.employeeNameInput.text.toString()
+                          /*      selectedEmployee.name = binding.employeeNameInput.text.toString()
                                 selectedEmployee.id = binding.employeeIdInput.text.toString().toInt()
                                 selectedEmployee.squad = setSquad
                                 selectedEmployee.lastRun = binding.lastRunBody.text.toString()
@@ -204,7 +203,7 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
                                 selectedEmployee.competence.searchAndRescueLeader =
                                     binding.searchAndRescueLeaderCheckBox.isChecked
                                 selectedEmployee.competence.searchAndRescue =
-                                    binding.searchAdnRescueCheckBox.isChecked
+                                    binding.searchAdnRescueCheckBox.isChecked*/
                                 startActivity(goToMainScreen)
                                 Toast.makeText(
                                     this,
@@ -280,6 +279,6 @@ class AddEmployeeActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListen
 
     //Creates a Employee Object.
     private fun createEmployee(id: Int, name: String, squad: Int, competence: Competence): Employee {
-            return Employee(id = id, name = name, squad = squad, competence = competence)
+            return Employee(id = id, name = name, squad = squad)
         }
     }

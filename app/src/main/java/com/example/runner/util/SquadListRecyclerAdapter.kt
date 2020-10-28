@@ -1,13 +1,10 @@
 package com.example.runner.util
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.runner.R
-import com.example.runner.data.Employee
-import kotlinx.android.synthetic.main.employee_list_item.view.*
+import com.example.runner.data.dto.Employee
 
 // --------------------- Basically same as MainListRecyclerAdapter ---------------------------------------
 

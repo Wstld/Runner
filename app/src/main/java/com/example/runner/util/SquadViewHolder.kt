@@ -3,7 +3,7 @@ package com.example.runner.util
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.runner.data.Employee
+import com.example.runner.data.dto.Employee
 import kotlinx.android.synthetic.main.employee_list_item.view.*
 
 class SquadViewHolder(itemView: View, val listener: RecyclerViewItemClick): RecyclerView.ViewHolder(itemView),
