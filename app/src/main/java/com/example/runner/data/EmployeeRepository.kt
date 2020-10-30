@@ -103,11 +103,16 @@ class EmployeeRepository private constructor(private val employeeDao: EmployeeDa
 
 
     fun addEmployee(employee: Employee){
-        employeeDao.addEmployee(employee)
+        val addedE = hashMapOf(
+            "id" to employee.id,
+            "name" to employee.name,
+            "squad" to employee.squad,
+            "lastRun" to employee.lastRun
+        )
+        fireStoreDataBase.collection("employees").document(employee.id.toString()).set(addedE
+        )
     }
 
-    fun getEmployees() = employeeDao.getEmployees()
-    fun removeEmployee(employee: Employee) = employeeDao.removeEmployee(employee)
     fun filterList(string: String) = employeeDao.getFilteredEmployees(string)
 
     companion object{
