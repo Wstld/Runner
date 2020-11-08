@@ -1,28 +1,45 @@
 package com.example.runner.ui.viewmodels
 
 import android.content.Context
-import android.widget.DatePicker
+import android.content.Intent
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.ViewModel
 import com.example.runner.data.EmployeeRepository
 import com.example.runner.data.dto.Employee
-import kotlinx.android.synthetic.main.activity_add_employee.*
+import com.example.runner.ui.MainActivity
+
 
 class CrudEmployeeViewModel(private val employeeRepository: EmployeeRepository):ViewModel() {
     fun getDate():String{
         return ""
     }
+    fun updateEmployee(oldId:Int,id: Int,name: String,squad: Int,lastRun:String,context: Context){
+        employeeRepository.updateEmployee(id,name,squad,lastRun,oldId)
+        Toast.makeText(context, "$id has been updated", Toast.LENGTH_SHORT).show()
 
+        val mainActivity = Intent(context, MainActivity::class.java)
+        goTo(context,mainActivity)
+    }
 
     fun createEmployee(id:Int,name:String,squad:Int,context: Context) {
         val createdEmployee = Employee(id, name, squad,getDate())
-
         employeeRepository.addEmployee(createdEmployee)
+        Toast.makeText(context, "$name was added!", Toast.LENGTH_SHORT).show()
+        val mainActivity = Intent(context, MainActivity::class.java)
+        goTo(context,mainActivity)
     }
 
     fun getEmployee(id:Int,context: Context): Employee? {
-        val emp = employeeRepository.getEmployeesFromFireStore(context).value!!.find { it.id == id }
-        return emp
+       val emp = employeeRepository.getSpecificEmployee(id = id)
+        return if (emp != null) emp
+        else {Toast.makeText(context, "Something Wrong", Toast.LENGTH_SHORT).show()
+            null
+        }
+    }
+
+    fun goTo(context: Context,intent: Intent){
+        startActivity(context,intent,intent.extras)
     }
 
 

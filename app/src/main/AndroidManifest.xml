@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.AddEmployeeActivity"></activity>
+        <activity android:name=".ui.CrudEmployeeActivity"></activity>
         <activity android:name=".ui.SendRunnerActivity" />
         <activity android:name=".ui.MainListActivity" />
         <activity android:name=".ui.MainActivity">

@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(){
                     startActivity(goToSendRunner)
                 }
                 binding.addEmployeeBtn -> {
-                    val goToAddEmployeeActivity = Intent(this, AddEmployeeActivity::class.java)
+                    val goToAddEmployeeActivity = Intent(this, CrudEmployeeActivity::class.java)
                     startActivity(goToAddEmployeeActivity)
                 }
                 binding.showFullListBtn -> {

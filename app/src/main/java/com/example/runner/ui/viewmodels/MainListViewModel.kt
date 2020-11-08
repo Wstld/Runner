@@ -2,16 +2,11 @@ package com.example.runner.ui.viewmodels
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
-import android.view.View
 import androidx.core.content.ContextCompat.startActivity
-import androidx.lifecycle.MutableLiveData
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.runner.data.EmployeeRepository
-import com.example.runner.data.dto.Employee
-import com.example.runner.ui.AddEmployeeActivity
+import com.example.runner.ui.CrudEmployeeActivity
 import com.example.runner.ui.ID_KEY
 import com.example.runner.util.MainListEvent
 
@@ -26,7 +21,7 @@ class MainListViewModel(private val employeeRepository: EmployeeRepository):View
 
     fun handleEvent(event:MainListEvent<Int>,context: Context){
         when (event){
-            is MainListEvent.ListItemClicked<Int> -> { showEmployee(event.view,event.id)}
+            is MainListEvent.ListItemClicked<Int> -> { showEmployee(context,event.id)}
             is MainListEvent.RemoveClicked -> {removeEmployee(event.id,context)}
         }
     }
@@ -42,10 +37,10 @@ class MainListViewModel(private val employeeRepository: EmployeeRepository):View
         employeeRepository.filterList(str)
     }
 
-    private fun showEmployee(view: View,id:Int){
-        val showEmployee = Intent(view.context,AddEmployeeActivity::class.java)
+    private fun showEmployee(context: Context,id:Int){
+        val showEmployee = Intent(context,CrudEmployeeActivity::class.java)
         showEmployee.putExtra(ID_KEY,id)
-        startActivity(view.context,showEmployee,showEmployee.extras)
+        startActivity(context,showEmployee,showEmployee.extras)
     }
 
 
